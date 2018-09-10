@@ -18,6 +18,6 @@ namespace BSEnterprises.WebApp.Mappings
             CreateMap<Engineer, EngineerResource>();
             CreateMap<Product, SaveProductResource>();
             CreateMap<Product, ProductResource>();
-                   }    
+        }    
     }
 }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
