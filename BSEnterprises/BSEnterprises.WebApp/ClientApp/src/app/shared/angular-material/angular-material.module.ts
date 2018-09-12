@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {MatTableModule} from '@angular/material/table';
 
 
 @NgModule({
     imports: [
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        MatTableModule
     ],
     exports: [
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        MatTableModule
     ],
     declarations: [],
     providers: [],
