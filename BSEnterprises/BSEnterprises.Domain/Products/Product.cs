@@ -9,7 +9,7 @@ namespace BSEnterprises.Domain.Products
         public string Name { get; set; }      
         public Company Company { get; set; }      
        
-        public string CompanyId  { get; set; } 
+        public int CompanyId  { get; set; } 
 
         public bool IsActive { get; set; }
 
@@ -21,7 +21,7 @@ namespace BSEnterprises.Domain.Products
                 
         }
 
-          public Product( string name, string companyId, double? price)
+          public Product( string name, int companyId, double? price)
         {
             
             Name = name;
@@ -31,7 +31,7 @@ namespace BSEnterprises.Domain.Products
 
                     }
 
-         public void Modify( string name, string companyId, double? price )
+         public void Modify( string name, int companyId, double? price )
          {
              
              Name = name;
