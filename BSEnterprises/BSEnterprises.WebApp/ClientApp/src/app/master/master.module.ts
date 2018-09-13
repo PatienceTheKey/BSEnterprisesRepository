@@ -7,27 +7,29 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthenticatedUserComponent } from '../shared/components/authenticated-user/authenticated-user.component';
 
-const routes : Routes = [
-    {
-        path : 'master',
-        component : AuthenticatedUserComponent,
-        children : [
-            {
-                path : 'company',component : CompanyListComponent
-            },
-            {
-                path : "company/:id", component : CompanyFormComponent
-            }
-        ]
-    }
-]
+// const routes : Routes = [
+//     {
+//         path : 'master',
+//         component : AuthenticatedUserComponent,
+//         children : [
+//             {
+//                 path : 'company',component : CompanyListComponent
+//             },
+//             {
+//                 path : "company/:id", component : CompanyFormComponent
+//             }
+//         ]
+//     }
+// ]
 
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forChild(routes)
+        // RouterModule.forChild(routes)
     ],
-    exports: [],
+    exports: [
+        CompanyListComponent
+    ],
     declarations: [CompanyListComponent, CompanyFormComponent],
     providers: [
         CompanyService,

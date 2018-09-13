@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BSEnterprises.WebApp.Api.EngineerApi
 {
+    [Produces("application/json")]
+    [Route("api/Engineers")]
     public class EngineerController : Controller
     {
         private readonly IReadModelDatabase _database;

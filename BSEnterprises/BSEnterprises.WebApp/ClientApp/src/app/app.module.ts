@@ -17,11 +17,12 @@ import { AuthenticatedUserComponent } from './shared/components/authenticated-us
     SharedModule,
     MasterModule,
     HttpClientModule,
-    RouterModule.forRoot([
-      {path : 'master', component : AuthenticatedUserComponent },
-      { path: '', redirectTo: 'master/company', pathMatch: 'full' },
+    // RouterModule.forRoot([
+    //   {path : 'master', component : AuthenticatedUserComponent},
+    //   { path: '', redirectTo: 'master/company', pathMatch: 'full' },
+    //   {path: '**',redirectTo: 'master/company', pathMatch: 'full'}
     
-    ])
+    // ])
 
   ],
   providers: [],
