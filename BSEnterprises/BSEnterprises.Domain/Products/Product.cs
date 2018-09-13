@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BSEnterprises.Domain.Companies;
 
 namespace BSEnterprises.Domain.Products
 {
@@ -6,28 +7,47 @@ namespace BSEnterprises.Domain.Products
     {
         public int Id { get; set; }     
         public string Name { get; set; }      
+        public Company Company { get; set; }      
+       
+        public string CompanyId  { get; set; } 
 
-        public ICollection<ProductItem> ProductItems { get; set; }       
+        public bool IsActive { get; set; }
+
+        public double? Price {get; set;}     
+
 
         public Product ()
         {
-                ProductItems = new List<ProductItem>();
+                
         }
 
-          public Product( string name, List<ProductItem> productItems)
+          public Product( string name, string companyId, double? price)
         {
             
             Name = name;
-            ProductItems = productItems;
-         }
+            CompanyId = companyId;
+            Price = price;
+            IsActive = true;
 
-         public void Modify( string name, List<ProductItem> productItems)
+                    }
+
+         public void Modify( string name, string companyId, double? price )
          {
              
              Name = name;
-             ProductItems = productItems;
-
+             CompanyId = companyId;
+             Price = price;
+             IsActive = true;
+          
          }
+
+            public void Delete()
+        {
+            IsActive = false;
+        }
+
     }
+
+    
       
 }

@@ -46,7 +46,7 @@ namespace BSEnterprises.WebApp.Api.EngineerApi
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var engineer = new Engineer(model.Name);
+            var engineer = new Engineer(model.Name, model.ContactNumber, model.Address);
 
             _engineerRepository.Add(engineer);
 
@@ -68,7 +68,7 @@ namespace BSEnterprises.WebApp.Api.EngineerApi
                 return NotFound();
             }
 
-            engineerFromDb.Modify(model.Name);
+            engineerFromDb.Modify(model.Name, model.ContactNumber, model.Address);
 
             await _unitOfWork.CompleteAsync();
 

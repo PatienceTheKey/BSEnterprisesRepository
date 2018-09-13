@@ -50,7 +50,7 @@ namespace BSEnterprises.WebApp.Api.CompanyApi
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var company = new Company(model.Name);
+            var company = new Company(model.Name, model.ContactNumber);
 
             _companyRepository.Add(company);
 
@@ -72,7 +72,7 @@ namespace BSEnterprises.WebApp.Api.CompanyApi
                 return NotFound();
             }
 
-            companyFromDb.Modify(model.Name);
+            companyFromDb.Modify(model.Name, model.ContactNumber);
 
             await _unitOfWork.CompleteAsync();
 
