@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BSEnterprises.WebApp.Api.ProductApi
 {
+    [Produces("appplication/json")]
+    [Route("api/Products")]
     public class ProductController: Controller
     {
         

@@ -7,22 +7,26 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { MasterModule } from './master/master.module';
 import { AuthenticatedUserComponent } from './shared/components/authenticated-user/authenticated-user.component';
+import { CompanyListComponent } from './master/components/company-list/company-list.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
     SharedModule,
     MasterModule,
     HttpClientModule,
-    // RouterModule.forRoot([
-    //   {path : 'master', component : AuthenticatedUserComponent},
-    //   { path: '', redirectTo: 'master/company', pathMatch: 'full' },
-    //   {path: '**',redirectTo: 'master/company', pathMatch: 'full'}
+    RouterModule.forRoot([
+      {path : 'company', component : CompanyListComponent
+        
+    }
+      
     
-    // ])
+    ])
 
   ],
   providers: [],

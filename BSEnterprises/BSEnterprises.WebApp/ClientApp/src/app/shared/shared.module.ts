@@ -12,6 +12,7 @@ import { BrowserModule } from '@angular/platform-browser';
     ],
     exports: [
         AngularMaterialModule,
+        
             ],
     declarations: [
        AuthenticatedUserComponent

@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BSEnterprises.WebApp.Api.SparePartApi
 {
+    [Produces("application/json")]
+    [Route("api/SpareParts")]
       public class SparePartController: Controller
     {
         

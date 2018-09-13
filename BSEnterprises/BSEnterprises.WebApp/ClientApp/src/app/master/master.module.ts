@@ -28,7 +28,7 @@ import { AuthenticatedUserComponent } from '../shared/components/authenticated-u
         // RouterModule.forChild(routes)
     ],
     exports: [
-        CompanyListComponent
+        
     ],
     declarations: [CompanyListComponent, CompanyFormComponent],
     providers: [
