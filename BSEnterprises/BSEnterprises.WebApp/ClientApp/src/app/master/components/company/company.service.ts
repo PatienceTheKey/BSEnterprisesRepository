@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ServiceBase } from '../../shared/service-base';
-import { ICompany } from '../interface/company';
+
+
 import { HttpClient } from '@angular/common/http';
+import { ICompany } from 'src/app/master/components/company/icompany';
+import { ServiceBase } from '../../../shared/service-base';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,8 @@ constructor(private http : HttpClient) {
  intializeObject(): ICompany {
  return{
    id : 0,
-   name : ''
+   name : '',
+   contactNumber: '',
  }   
 }
 

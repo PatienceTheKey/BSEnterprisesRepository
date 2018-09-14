@@ -7,13 +7,20 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { MasterModule } from './master/master.module';
 import { AuthenticatedUserComponent } from './shared/components/authenticated-user/authenticated-user.component';
-import { CompanyListComponent } from './master/components/company-list/company-list.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { CompanyService } from './master/components/company/company.service';
+import { ProductService } from './master/components/product/product.service';
+import { SparePartService } from './master/components/spare-part/spare-part.service';
+import { EngineerService } from './master/components/engineer/engineer.service';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent
+    
+
+
   ],
   imports: [
     BrowserModule,
@@ -21,15 +28,16 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     MasterModule,
     HttpClientModule,
     RouterModule.forRoot([
-      {path : 'company', component : CompanyListComponent
-        
-    }
+      // {path : 'company', component : CompanyListComponent},
+      // {path : 'company/id:', component : CompanyFormComponent},
+      
+
       
     
     ])
 
   ],
-  providers: [],
+  providers: [CompanyService, ProductService, SparePartService,EngineerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
