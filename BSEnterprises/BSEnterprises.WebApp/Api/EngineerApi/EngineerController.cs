@@ -30,8 +30,7 @@ namespace BSEnterprises.WebApp.Api.EngineerApi
         public async Task<IEnumerable<EngineerResource>> GetCompanies()
         {
             var engineers = await _database.Engineers.ToListAsync();
-            return _mapper.Map<List<Engineer>, List<EngineerResource>>(engineers).ToList();
-        }
+            return _mapper.Map<List<Engineer>, List<EngineerResource>>(engineers.Where(td => td.IsActive).ToList());        }
 
         [HttpGet("{id}")]
         public async Task<SaveEngineerResource> GetById(int id)

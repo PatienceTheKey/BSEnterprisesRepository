@@ -15,6 +15,7 @@ import { CompanyService } from './components/company/company.service';
 import { EngineerService } from './components/engineer/engineer.service';
 import { ProductService } from './components/product/product.service';
 import { SparePartService } from './components/spare-part/spare-part.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
     {
@@ -39,6 +40,8 @@ const routes: Routes = [
 @NgModule({
     imports: [
         SharedModule,
+        FormsModule,
+        ReactiveFormsModule,
         RouterModule.forChild(routes)
     ],
     exports: [

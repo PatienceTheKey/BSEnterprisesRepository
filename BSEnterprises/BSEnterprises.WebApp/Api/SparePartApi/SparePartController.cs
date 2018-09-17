@@ -34,7 +34,7 @@ namespace BSEnterprises.WebApp.Api.SparePartApi
         public async Task<IEnumerable<SparePartResource>> GetCompanies()
         {
             var spareParts = await _database.SpareParts.ToListAsync();
-            return _mapper.Map<List<SparePart>, List<SparePartResource>>(spareParts).ToList();
+            return _mapper.Map<List<SparePart>, List<SparePartResource>>(spareParts.Where(td => td.IsActive).ToList());
         }
 
         [HttpGet("{id}")]

@@ -1,3 +1,49 @@
-<p>
-  spare-part-list works!
-</p>
+
+
+     <p-growl [value]="msgs"></p-growl> 
+     <p-confirmDialog [(visible)]="displayDialogDelete"></p-confirmDialog>    
+     <h3>Spare Part List</h3>
+     <br>
+     <br>
+     
+     
+     
+     <p-table #dt [value]="sparePartList" [columns]="cols" selectionMode="single"  [(selection)]="selectedSparePart" 
+     (onRowSelect)="sparePartToEdit($event)" [paginator]="true" rows="100" >
+       <ng-template pTemplate="caption">
+         <div style="text-align:left">
+           <button type="button" pButton icon="fa fa-fw fa-plus" (click)="sparePartToCreate()" label="Add"></button>
+         </div>
+         <div style="text-align:right">
+           <i class="fa fa-search"></i> 
+           <input type="text" pInputText size="30" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+           </div>
+       </ng-template>
+       <ng-template pTemplate="header">
+         <tr>
+           <th style="width:5%">S.No.</th>
+           <th style="width:28%">Name</th>
+           <!-- <th style="width:28%">Address</th>
+           <th style="width:28%">Contact Number</th> -->
+           <th>Delete</th>
+           </tr>
+       </ng-template>
+  
+       <ng-template pTemplate="body" let-a let-rowIndex="rowIndex">
+         <tr [pSelectableRow]="a">
+           <td>{{rowIndex+1}}</td>
+           <td>{{a.name}}</td>
+           <!-- <td>{{a.address}}</td>
+           <td>{{a.contactNumber}}</td> -->
+                   <td>
+             <button type="button" pButton icon="fa fa-fw fa-trash" (click)="showDialogToDelete(a)"></button>
+           </td>
+     
+         </tr>
+       </ng-template>
+     </p-table>
+     
+     <app-spare-par-form [id]= "id"
+                       (closeDialog)="id = $event"
+                       (refreshList)="getSpareParts()"></app-spare-par-form>
+     

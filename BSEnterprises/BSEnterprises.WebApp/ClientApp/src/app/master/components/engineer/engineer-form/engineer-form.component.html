@@ -1,3 +1,67 @@
-<p>
-  engineer-form works!
-</p>
+
+<p-growl>[(value)]="msgs"></p-growl>
+
+
+  
+    
+  
+  
+      
+  
+    
+<form [formGroup]="engineerForm" (ngSubmit)="saveEngineer()">
+
+  <p-dialog header="{{pageTitle}}" 
+          [(visible)]="displayDialog" 
+          [responsive]="true" 
+          showEffect="fade" 
+          [modal]="true" 
+          [closable]="true" 
+          (onHide) = "this.closeDialog.emit(null)"
+          [width]="500" >
+    <div class="ui-g">
+      
+
+
+      
+
+
+      <div class="ui-g-5">
+        <label style="margin-top:5px;"  for="name">Name</label>
+        </div>
+        <div class="ui-g-7">
+          <input pInputText type="text"  id="name" formControlName="name" style="width:160px">
+          
+        </div>
+      
+      
+        <div class="ui-g-5">
+        <label style="margin-top:5px;"  for="address">Address</label>
+        </div>
+        <div class="ui-g-7">
+          <input pInputText type="text"  id="address" formControlName="address" style="width:160px">
+          
+        </div>
+
+
+        <div class="ui-g-5">
+        <label style="margin-top:5px;"  for="contact">Contact Number</label>
+        </div>
+        <div class="ui-g-7">
+          <input pInputText type="text"  id="contact" formControlName="contactNumber" style="width:160px" onlyNumber="true">
+          
+        </div>
+
+       
+    </div>
+    <!-- <pre>{{customerForm.value | json}} </pre> -->
+    <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button type="button" pButton icon="fa fa-fw fa-check" (click)="saveEngineer()" (onclick)="disable()" [disabled]="engineerForm.invalid"label="Save"></button>
+      </div>
+  </p-footer>
+  </p-dialog>
+  
+</form>
+
+

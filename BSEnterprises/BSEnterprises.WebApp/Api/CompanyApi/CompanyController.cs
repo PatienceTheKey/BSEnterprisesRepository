@@ -32,7 +32,7 @@ namespace BSEnterprises.WebApp.Api.CompanyApi
         public async Task<IEnumerable<CompanyResource>> GetCompanies()
         {
             var companies = await _database.Companies.ToListAsync();
-            return _mapper.Map<List<Company>, List<CompanyResource>>(companies).ToList();
+            return _mapper.Map<List<Company>, List<CompanyResource>>(companies.Where(td => td.IsActive).ToList());
         }
 
         [HttpGet("{id}")]
