@@ -1,9 +1,11 @@
 using AutoMapper;
 using BSEnterprises.Domain.Companies;
 using BSEnterprises.Domain.Engineers;
+using BSEnterprises.Domain.Orders;
 using BSEnterprises.Domain.Products;
 using BSEnterprises.WebApp.Api.CompanyApi;
 using BSEnterprises.WebApp.Api.EngineerApi;
+using BSEnterprises.WebApp.Api.OrderApi;
 using BSEnterprises.WebApp.Api.ProductApi;
 
 namespace BSEnterprises.WebApp.Mappings
@@ -18,6 +20,9 @@ namespace BSEnterprises.WebApp.Mappings
             CreateMap<Engineer, EngineerResource>();
             CreateMap<Product, SaveProductResource>();
             CreateMap<Product, ProductResource>();
+            CreateMap<Order, OrderResource>();
+            CreateMap<Order, SaveOrderResource>();
+            CreateMap<OrderItem, SaveOrderItemResource>();
         }    
     }
 }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       

@@ -1,4 +1,6 @@
+using BSEnterprises.Domain.Orders;
 using BSEnterprises.Domain.Products;
+using System.Collections.Generic;
 
 namespace BSEnterprises.Domain.SpareParts
 {
@@ -12,6 +14,7 @@ namespace BSEnterprises.Domain.SpareParts
         public Product Product { get; set; }
         public int ProductId { get; set; }
         public bool IsActive { get; set; }
+        public IEnumerable<OrderItem> OrderItems { get; set; }
 
         public SparePart()
         {

@@ -1,5 +1,6 @@
 using BSEnterprises.Domain.Companies;
 using BSEnterprises.Domain.Engineers;
+using BSEnterprises.Domain.Orders;
 using BSEnterprises.Domain.Products;
 using BSEnterprises.Domain.SpareParts;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,22 @@ namespace BSEnterprises.Persistence
       public DbSet<Engineer> Engineers {get; set;}
       public DbSet<Product> Products {get; set;}
       public DbSet<SparePart> SpareParts {get; set;}
+      public DbSet<Order> Orders { get; set; }
+      public DbSet<OrderItem> OrderItems { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<OrderItem>()
+               .HasOne(fk => fk.Product)
+               .WithMany(p => p.OrderItems)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<OrderItem>()
+              .HasOne(fk => fk.SparePart)
+              .WithMany(p => p.OrderItems)
+              .OnDelete(DeleteBehavior.Restrict);
+
+        }
 
     }
 }

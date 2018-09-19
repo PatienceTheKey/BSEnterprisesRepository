@@ -44,7 +44,7 @@ export class ProductFormComponent implements OnInit {
   
   msgs:Message[] = [];
   cols : any[];
-  displayDialog : boolean = true;
+  displayDialog : boolean;
   
   busy : boolean;
 

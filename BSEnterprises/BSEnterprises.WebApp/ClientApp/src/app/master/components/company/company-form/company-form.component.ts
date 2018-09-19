@@ -38,7 +38,7 @@ export class CompanyFormComponent implements OnInit {
   
   msgs:Message[] = [];
   cols : any[];
-  displayDialog : boolean = true;
+  displayDialog : boolean;
   registrationType : SelectItem[];
   busy : boolean;
 
@@ -78,7 +78,7 @@ private onCompanyRetrieved(company:ICompany): void{
   this.displayDialog = true;
   this.company = company;
 
-   if(this.company.id == 0){
+   if(this.id == 0){
      this.companyForm = this.newForm();
      this.pageTitle = 'Add Company';
      console.log("add")
@@ -103,9 +103,9 @@ saveCompany(): void {
   if (this.companyForm.dirty && this.companyForm.valid) {
 
       let companyToSave = Object.assign({}, this.company, this.companyForm.value);
-      this.busy = true;
+      
       this.companyService.save(companyToSave, this.id).subscribe(()=> this.onSaveComplete());
-           }
+  }
 
 
   else if (!this.companyForm.dirty) {
@@ -113,14 +113,14 @@ saveCompany(): void {
   }
 }
 
-private onSaveComplete():void{
+ onSaveComplete():void{
   const displayMsg = this.id == 0 ? 'Saved' : 'Updated';
   this.msgs = [];
   this.msgs.push({
     severity : 'success',
     summary : 'Success Message',
     detail : 'Company Sucessfully' + displayMsg
-  });
+  })
   // this.router.navigate(['/customer']);
   this.refreshList.emit(true);
   this.displayDialog=false;

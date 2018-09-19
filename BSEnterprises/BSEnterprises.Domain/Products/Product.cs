@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BSEnterprises.Domain.Companies;
+using BSEnterprises.Domain.Orders;
 
 namespace BSEnterprises.Domain.Products
 {
@@ -13,9 +14,9 @@ namespace BSEnterprises.Domain.Products
 
         public bool IsActive { get; set; }
 
-        public double? Price {get; set;}     
+        public double? Price {get; set;}
 
-
+        public IEnumerable<OrderItem> OrderItems { get; set; }
         public Product ()
         {
                 

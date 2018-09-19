@@ -1,6 +1,7 @@
 using System.Linq;
 using BSEnterprises.Domain.Companies;
 using BSEnterprises.Domain.Engineers;
+using BSEnterprises.Domain.Orders;
 using BSEnterprises.Domain.Products;
 using BSEnterprises.Domain.SpareParts;
 
@@ -12,5 +13,6 @@ namespace BSEnterprises.Persistence
         IQueryable<Engineer> Engineers { get; }
         IQueryable<Product> Products { get; }
         IQueryable<SparePart> SpareParts { get; }
+        IQueryable<Order> Orders { get; }
     }
 }

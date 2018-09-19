@@ -5,7 +5,6 @@ namespace BSEnterprises.WebApp.Api.CompanyApi
         public int Id { get; set; }
         public string Name { get; set; }
         public string ContactNumber { get; set; }
-        public int CompanyId{ get; set; }
-
+        
     }
 }

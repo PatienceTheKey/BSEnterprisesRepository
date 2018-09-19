@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BSEnterprises.Domain.Companies;
 using BSEnterprises.Domain.Engineers;
+using BSEnterprises.Domain.Orders;
 using BSEnterprises.Domain.Products;
 using BSEnterprises.Domain.SpareParts;
 using BSEnterprises.Persistence;
@@ -35,6 +36,7 @@ namespace BSEnterprises.WebApp
             services.AddScoped<IEngineerRepository, EngineerRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISparePartRepository, SparePartRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IReadModelDatabase, ReadModelDatabase>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
