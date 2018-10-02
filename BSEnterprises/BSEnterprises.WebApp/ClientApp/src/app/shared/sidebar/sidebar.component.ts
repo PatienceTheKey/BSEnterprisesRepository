@@ -27,7 +27,9 @@ export class SidebarComponent implements OnInit {
      
       {
           label: 'Orders', expanded : true,
-          
+             items : [
+               { label : 'List', routerLink : ['/order/orders']}
+             ]                     
           // items: [
           //         {label: 'Order', routerLink:['/authenticated/sales']}
           //         // {label: 'Issue Note', routerLink:['/customer']},

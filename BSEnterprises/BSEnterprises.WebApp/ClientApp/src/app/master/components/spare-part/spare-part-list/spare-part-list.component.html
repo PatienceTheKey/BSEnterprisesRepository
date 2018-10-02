@@ -23,8 +23,8 @@
          <tr>
            <th style="width:5%">S.No.</th>
            <th style="width:28%">Name</th>
-           <!-- <th style="width:28%">Address</th>
-           <th style="width:28%">Contact Number</th> -->
+            <th style="width:28%">Product</th>
+           
            <th>Delete</th>
            </tr>
        </ng-template>
@@ -33,8 +33,8 @@
          <tr [pSelectableRow]="a">
            <td>{{rowIndex+1}}</td>
            <td>{{a.name}}</td>
-           <!-- <td>{{a.address}}</td>
-           <td>{{a.contactNumber}}</td> -->
+           
+           <td>{{a.product.name}}</td>
                    <td>
              <button type="button" pButton icon="fa fa-fw fa-trash" (click)="showDialogToDelete(a)"></button>
            </td>

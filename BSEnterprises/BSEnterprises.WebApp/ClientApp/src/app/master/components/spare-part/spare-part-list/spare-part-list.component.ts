@@ -32,8 +32,7 @@ export class SparePartListComponent implements OnInit {
     this.cols = [
      { field: 'id', header: 'Sn.', width: '5%' },
      { field: 'name', header: 'Name', width: '15%' },
-     { field: 'contactNumber', header: 'Contact Number', width: '15%' },
-     { field: 'address', header: 'Address ', width: '15%' },
+     
      ];
     
      this.loading = true;

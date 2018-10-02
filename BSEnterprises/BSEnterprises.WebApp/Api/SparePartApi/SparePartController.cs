@@ -33,7 +33,8 @@ namespace BSEnterprises.WebApp.Api.SparePartApi
          [HttpGet]
         public async Task<IEnumerable<SparePartResource>> GetCompanies()
         {
-            var spareParts = await _database.SpareParts.ToListAsync();
+            var spareParts = await _database.SpareParts.Include(a=> a.Product)
+            .ToListAsync();
             return _mapper.Map<List<SparePart>, List<SparePartResource>>(spareParts.Where(td => td.IsActive).ToList());
         }
 

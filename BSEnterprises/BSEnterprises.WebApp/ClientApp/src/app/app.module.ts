@@ -12,6 +12,7 @@ import { CompanyService } from './master/components/company/company.service';
 import { ProductService } from './master/components/product/product.service';
 import { SparePartService } from './master/components/spare-part/spare-part.service';
 import { EngineerService } from './master/components/engineer/engineer.service';
+import { OrderModule } from './order/order.module';
 
 
 
@@ -26,6 +27,7 @@ import { EngineerService } from './master/components/engineer/engineer.service';
     BrowserModule,
     SharedModule,
     MasterModule,
+    OrderModule,
     HttpClientModule,
     RouterModule.forRoot([
       // {path : 'company', component : CompanyListComponent},

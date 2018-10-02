@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BSEnterprises.WebApp.Api.ProductApi
 {
-    [Produces("appplication/json")]
+    [Produces("application/json")]
     [Route("api/Products")]
     public class ProductController: Controller
     {
@@ -37,7 +37,7 @@ namespace BSEnterprises.WebApp.Api.ProductApi
          [HttpGet]
         public async Task<IEnumerable<ProductResource>> GetCompanies()
         {
-            var products = await _database.Products.ToListAsync();
+            var products = await _database.Products.Include(c => c.Company).Where(a=>a.IsActive == true).ToListAsync();
             return _mapper.Map<List<Product>, List<ProductResource>>(products).ToList();
         }
 
