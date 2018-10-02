@@ -64,8 +64,8 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-order style="text-align: center;">
                 <tr [pSelectableRow]="rowData" style="text-align: center;">
-                    <td>{{order.OrderDate}}</td>
-                    <td>{{order.engineerId}}</td>
+                    <td>{{order.orderDate | date:'dd/mm/yyyy'}}</td>
+                    <td>{{order.engineer.name}}</td>
                     
                     <td>
                         <p-button type="button" label="Delete" class="ui-button-rounded ui-button-danger" icon="fa fa-fw fa-close" style="margin-bottom:10px;"

@@ -33,12 +33,12 @@ export class OrderListComponent implements OnInit {
 
   add() {
     this.id = 0;
-    this._router.navigate(['authenticated/company_log', this.id])
+    this._router.navigate(['order/orders', this.id])
   }
   edit(event) {
     this.id = event.data.id;
     console.log(this.id)
-    this._router.navigate(['authenticated/company_log', this.id])
+    this._router.navigate(['order/orders', this.id])
   }
   searchByDate(fromDate: Date, toDate: Date) {
     this.orderService.getOrdersByDate(this.fromDate, this.toDate).subscribe(response => {

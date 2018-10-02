@@ -12,6 +12,7 @@ const routes: Routes = [
       component: AuthenticatedUserComponent,
       children: [
           {path : 'orders' , component : OrderListComponent},
+          {path : 'orders/:id', component : OrderFormComponent},
           { path: '', redirectTo: 'orders', pathMatch: 'full' },
 
       ]

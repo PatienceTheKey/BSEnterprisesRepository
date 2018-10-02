@@ -22,6 +22,7 @@ namespace BSEnterprises.WebApp.Mappings
             CreateMap<Product, KeyValuePairResource>();
             CreateMap<Engineer, SaveEngineerResource>();
             CreateMap<Engineer, EngineerResource>();
+            CreateMap<Engineer,KeyValuePairResource>();
             CreateMap<Product, SaveProductResource>();
             CreateMap<Product, ProductResource>();
             CreateMap<SparePart, SaveSparePartResource>();
