@@ -8,7 +8,6 @@ orderItems: IOrderItems[],
 
 export interface IOrderItems{
 
-id:number,
 productId: number,
 sparePartId: number,
 quantity: number,
