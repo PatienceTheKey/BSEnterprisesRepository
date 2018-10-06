@@ -8,6 +8,8 @@ import { ISparePart } from '../../master/components/spare-part/ispare-part';
 import { ProductService } from '../../master/components/product/product.service';
 import { SparePartService } from '../../master/components/spare-part/spare-part.service';
 import { EngineerService } from '../../master/components/engineer/engineer.service';
+import { IEngineer } from '../../master/components/engineer/iengineer';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-order-form',
@@ -20,20 +22,52 @@ export class OrderFormComponent implements OnInit {
   order : Iorder;
   pageTitle;
   products: IProduct[];
-  sparePart: ISparePart[];
+  spareParts: ISparePart[];
   orderForm : FormGroup;
+  engineers : IEngineer[];
+  engineerSelectList : SelectItem[];
+  productSelectList : SelectItem[];
+  sparePartSelectList : SelectItem[];
+  selectedOrderItem : IOrderItems[];
+  itemId: number;
+
   constructor(private orderService : OrderService,
               private route : ActivatedRoute,
               private fb : FormBuilder,
               private productService: ProductService,
               private engineerService: EngineerService,
-              private sparePartService: SparePartService) { }
+              private sparePartService: SparePartService,
+              private router : Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.getOrder(this.id);
   });
+
+  this.engineerService.getAll().subscribe(res => {
+    this.engineers = res;
+    this.engineerSelectList = this.engineers.map(el => ({
+      label : el.name,
+      value : el.id,
+    }))
+  })
+
+  this.productService.getAll().subscribe(res => {
+    this.products = res;
+    this.productSelectList = this.products.map(el => ({
+      label : el.name,
+      value : el.id,
+    }))
+  })
+
+  this.sparePartService.getAll().subscribe(res => {
+    this.spareParts = res;
+    this.sparePartSelectList = this.spareParts.map(el => ({
+      label : el.name,
+      value : el.id,
+    }))
+  })
 
   this.orderForm = this.fb.group({
     engineerId :[],
@@ -63,14 +97,14 @@ export class OrderFormComponent implements OnInit {
 
     else {
       this.pageTitle = `Edit Price List: `;
-
+      let patchDate = new Date(this.order.orderDate); 
 
       // Update the data on the form
       this.orderForm.patchValue({
 
         id: this.order.id,
         engineerId: this.order.engineerId,
-        orderDate : this.order.orderdate
+        orderDate : new Date(patchDate.getTime() + Math.abs(patchDate.getTimezoneOffset() * 60000))
       });
       for (var i = 0; i < this.order.orderItems.length; i++) {
         this.orderItems.push(this.buildPriceListItem(this.order.orderItems[i]));
@@ -88,12 +122,13 @@ export class OrderFormComponent implements OnInit {
   let product = this.products.find(p => p.id == Number(pId.value));
 
   let orderItem: IOrderItems = {
+    id : Number(),
     productId: Number(pId.value),
     sparePartId: Number(sparePartItem.value),
     quantity: Number(quantity.value)
   };
 
-  if (this.isValidOrderItem(orderItem)) {
+ 
 
     this.orderItems.push(this.buildPriceListItem(orderItem));
 
@@ -102,9 +137,9 @@ export class OrderFormComponent implements OnInit {
     sparePartItem.value = null;
     pId.focus();
     return;
-  }
+  
 
-  alert("Not a valid Input");
+  
 }
 
 
@@ -131,9 +166,34 @@ getProductName(id: number): string {
 
 
 getSparePartName(id: number): string {
-  if (this.sparePart) {
-    return this.sparePart.find(p => p.id == id).name;
+  if (this.spareParts) {
+    return this.spareParts.find(p => p.id == id).name;
   }
+}
+
+
+
+saveOrder(): void {
+
+
+  let p = Object.assign({}, this.order, this.orderForm.value);
+
+  this.orderService.save(p, this.id)
+    .subscribe(() => this.onSaveComplete());
+
+}
+
+private onSaveComplete(): void {
+
+  let displayMsg = this.id == 0 ? "Saved" : "Updated";
+
+
+  this.router.navigate(['../'], { relativeTo: this.route });
+}
+
+editItems(event){
+  this.itemId = event.data.productId;
+  console.log(this.itemId);
 }
 
 
@@ -149,47 +209,9 @@ getSparePartName(id: number): string {
 
 
 
-// p
-
-// private isValidPriceListItem(priceListItem: PriceListItem): boolean {
-//   let result: boolean = true;
 
 
 
-//   if (isNaN(Number(priceListItem.productId)) || isNaN(Number(priceListItem.price)))
-//     result = false;
-
-//   return result;
-// }
-// removeLine(i: number): void {
-//   this.priceListItems.removeAt(i);
-// }
-
-
-// getProductName(id: number): string {
-//   if (this.products) {
-//     return this.products.find(p => p.id == id).name;
-//   }
-// }
-
-// savePriceList(): void {
-
-
-//   let p = Object.assign({}, this.priceList, this.priceListForm.value);
-
-//   this.priceListService.save(p, this.id)
-//     .subscribe(() => this.onSaveComplete());
-
-// }
-
-// private onSaveComplete(): void {
-
-//   let displayMsg = this.id == 0 ? "Saved" : "Updated";
-
-
-//   this.router.navigate(['../'], { relativeTo: this.route });
-// }
 
 
 
-// }

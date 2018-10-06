@@ -64,7 +64,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-order style="text-align: center;">
                 <tr [pSelectableRow]="rowData" style="text-align: center;">
-                    <td>{{order.orderDate | date:'dd/mm/yyyy'}}</td>
+                    <td>{{order.orderDate | date:'dd/MM/yyyy'}}</td>
                     <td>{{order.engineer.name}}</td>
                     
                     <td>

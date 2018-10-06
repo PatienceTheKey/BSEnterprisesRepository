@@ -40,7 +40,7 @@ namespace BSEnterprises.WebApp.Api.OrderApi
             return _mapper.Map<List<Order>, List<OrderResource>>(orders).ToList();
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<SaveOrderResource> GetOrderById(int id)
         {
             var order = await FindOrderById(id);
@@ -65,7 +65,7 @@ namespace BSEnterprises.WebApp.Api.OrderApi
             return StatusCode(201);
         }
 
-        [HttpPut("id")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateOrder(int id, [FromBody]SaveOrderResource model)
         {
             if (!ModelState.IsValid)
@@ -83,7 +83,7 @@ namespace BSEnterprises.WebApp.Api.OrderApi
             return Ok(_mapper.Map<Order, OrderResource>(orderFromDb));
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var orderFromDb = await FindOrderById(id);

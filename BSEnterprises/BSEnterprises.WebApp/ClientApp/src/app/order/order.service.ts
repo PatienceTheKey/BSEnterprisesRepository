@@ -19,7 +19,7 @@ export class OrderService extends ServiceBase<Iorder> {
      intializeObject(): Iorder {
      return{
        id : 0,
-       orderdate: new Date(),
+       orderDate: new Date(),
        engineerId: 0,
        orderItems: [],     }   
     }

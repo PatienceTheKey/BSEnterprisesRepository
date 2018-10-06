@@ -5,6 +5,7 @@ import { OrderListComponent } from './order-list/order-list.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthenticatedUserComponent } from '../shared/components/authenticated-user/authenticated-user.component';
 import { SharedModule } from '../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -23,6 +24,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [OrderFormComponent, OrderListComponent]
