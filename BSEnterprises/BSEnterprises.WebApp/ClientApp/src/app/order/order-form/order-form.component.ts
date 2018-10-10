@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../order.service';
 import { Iorder, IOrderItems } from '../iorder';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { IProduct } from '../../master/components/product/iproduct';
 import { ISparePart } from '../../master/components/spare-part/ispare-part';
 import { ProductService } from '../../master/components/product/product.service';
@@ -29,7 +29,10 @@ export class OrderFormComponent implements OnInit {
   productSelectList : SelectItem[];
   sparePartSelectList : SelectItem[];
   selectedOrderItem : IOrderItems[];
-  itemId: number;
+  editForm : FormGroup;
+  quantity;
+  displayDialog: boolean;
+  expandedRows;
 
   constructor(private orderService : OrderService,
               private route : ActivatedRoute,
@@ -74,7 +77,13 @@ export class OrderFormComponent implements OnInit {
     orderDate : new Date(),
     orderItems : this.fb.array([])
   })
+
+  this.editForm = this.fb.group({
+    quantity : [0]
+  })
 }
+
+
 
 
 
@@ -107,7 +116,7 @@ export class OrderFormComponent implements OnInit {
         orderDate : new Date(patchDate.getTime() + Math.abs(patchDate.getTimezoneOffset() * 60000))
       });
       for (var i = 0; i < this.order.orderItems.length; i++) {
-        this.orderItems.push(this.buildPriceListItem(this.order.orderItems[i]));
+        this.orderItems.push(this.buildOrderItem(this.order.orderItems[i]));
       }
 
     }
@@ -130,7 +139,7 @@ export class OrderFormComponent implements OnInit {
 
  
 
-    this.orderItems.push(this.buildPriceListItem(orderItem));
+    this.orderItems.push(this.buildOrderItem(orderItem));
 
     quantity.value = null;
     pId.value = null;
@@ -147,9 +156,15 @@ removeItem(i : number){
   this.orderItems.removeAt(i);
 }
 
+insertItem(i:number){
+ const insert = this.orderItems.at(i).patchValue({
+   quantity : this.editForm.get('quantity').value
+ });
+ console.log(insert);
+}
 
 
-private buildPriceListItem(orderItem: IOrderItems): FormGroup {
+private buildOrderItem(orderItem: IOrderItems): FormGroup {
   return this.fb.group({
     productId: [orderItem.productId, [Validators.required]],
     quantity: [orderItem.quantity, [Validators.required]],
@@ -192,9 +207,18 @@ private onSaveComplete(): void {
 }
 
 editItems(event){
-  this.itemId = event.data.productId;
-  console.log(this.itemId);
+  this.quantity = event.data.quantity;
+  this.displayDialog = true;
+  this.editForm.patchValue({
+    quantity : this.quantity
+  })
 }
+
+saveItem(){
+  this.displayDialog = false;
+}
+
+
 
 
 

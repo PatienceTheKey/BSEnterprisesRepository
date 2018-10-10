@@ -35,7 +35,7 @@ namespace BSEnterprises.WebApp.Api.OrderApi
         [HttpGet]
         public async Task<IEnumerable<OrderResource>> GetOrders(DateTime fromDate, DateTime toDate)
         {
-            var orders = await _database.Orders.Include(o =>o.Engineer).Where(o=>o.OrderDate.Date <= fromDate.Date && o.OrderDate.Date >= toDate.Date)
+            var orders = await _database.Orders.Include(o =>o.Engineer).Where(o=>o.OrderDate.Date >= fromDate.Date && o.OrderDate.Date <= toDate.Date)
             .ToListAsync();
             return _mapper.Map<List<Order>, List<OrderResource>>(orders).ToList();
         }

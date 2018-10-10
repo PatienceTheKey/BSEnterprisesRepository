@@ -24,5 +24,7 @@ namespace BSEnterprises.Persistence
         public IQueryable<SparePart> SpareParts => _context.SpareParts.AsNoTracking();
 
         public IQueryable<Order> Orders => _context.Orders.AsNoTracking();
+
+        public IQueryable<OrderItem> OrderItems => _context.OrderItems.AsNoTracking();
     }
 }

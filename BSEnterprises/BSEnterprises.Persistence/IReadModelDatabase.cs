@@ -14,5 +14,6 @@ namespace BSEnterprises.Persistence
         IQueryable<Product> Products { get; }
         IQueryable<SparePart> SpareParts { get; }
         IQueryable<Order> Orders { get; }
+        IQueryable<OrderItem> OrderItems {get;}
     }
 }

@@ -30,6 +30,7 @@ namespace BSEnterprises.WebApp.Mappings
             CreateMap<Order, OrderResource>();
             CreateMap<Order, SaveOrderResource>();
             CreateMap<OrderItem, SaveOrderItemResource>();
+            CreateMap<OrderItem, OrderItemResource>();
         }    
     }
 }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
