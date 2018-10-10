@@ -31,7 +31,7 @@ namespace BSEnterprises.WebApp.Api.SparePartApi
          
          
          [HttpGet]
-        public async Task<IEnumerable<SparePartResource>> GetCompanies()
+        public async Task<IEnumerable<SparePartResource>> GetSpareParts()
         {
             var spareParts = await _database.SpareParts.Include(a=> a.Product)
             .ToListAsync();
@@ -45,6 +45,15 @@ namespace BSEnterprises.WebApp.Api.SparePartApi
 
             return _mapper.Map<SparePart, SaveSparePartResource>(sparePart);
         }
+
+        [HttpGet("Product")]
+        public async Task<IEnumerable<SparePartResource>> GetSparePartsByProduct(int productId)
+        {
+             var sparePartsByProduct = await _database.SpareParts.Where(sp => sp.ProductId == productId)
+            .ToListAsync();
+
+            return _mapper.Map<List<SparePart>, List<SparePartResource>>(sparePartsByProduct.Where(td => td.IsActive).ToList());
+        } 
 
         [HttpPost]
         public async Task<IActionResult> NewProduct([FromBody] SaveSparePartResource model)

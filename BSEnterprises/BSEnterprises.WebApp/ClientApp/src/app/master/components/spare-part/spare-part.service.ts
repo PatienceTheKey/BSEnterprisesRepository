@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { ServiceBase } from '../../../shared/service-base';
 import { ISparePart } from './ispare-part';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { IOrderItems } from 'src/app/order/iorder';
 
 
 @Injectable({
@@ -26,5 +28,8 @@ export class SparePartService extends ServiceBase<ISparePart>{
     }
   }
   
+  getSparePartsByProduct(productId : number):Observable<ISparePart[]>{
+    return this.http.get<ISparePart[]>(`${this.baseUrl}/Product?productId=${productId}`);
+  }
   }
   

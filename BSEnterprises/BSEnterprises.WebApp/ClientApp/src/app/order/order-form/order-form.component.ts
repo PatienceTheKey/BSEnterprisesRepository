@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
 import { OrderService } from '../order.service';
 import { Iorder, IOrderItems } from '../iorder';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -10,6 +10,8 @@ import { SparePartService } from '../../master/components/spare-part/spare-part.
 import { EngineerService } from '../../master/components/engineer/engineer.service';
 import { IEngineer } from '../../master/components/engineer/iengineer';
 import { SelectItem } from 'primeng/api';
+
+import { EventListener } from '@angular/core/src/debug/debug_node';
 
 @Component({
   selector: 'app-order-form',
@@ -32,7 +34,9 @@ export class OrderFormComponent implements OnInit {
   editForm : FormGroup;
   quantity;
   displayDialog: boolean;
-  expandedRows;
+  orderItem : IOrderItems;
+  index: any;
+  
 
   constructor(private orderService : OrderService,
               private route : ActivatedRoute,
@@ -64,13 +68,15 @@ export class OrderFormComponent implements OnInit {
     }))
   })
 
-  this.sparePartService.getAll().subscribe(res => {
-    this.spareParts = res;
-    this.sparePartSelectList = this.spareParts.map(el => ({
-      label : el.name,
-      value : el.id,
-    }))
-  })
+  // this.sparePartService.getAll().subscribe(res => {
+  //   this.spareParts = res;
+  //   this.sparePartSelectList = this.spareParts.map(el => ({
+  //     label : el.name,
+  //     value : el.id,
+  //   }))
+  // })
+
+  
 
   this.orderForm = this.fb.group({
     engineerId :[],
@@ -83,7 +89,15 @@ export class OrderFormComponent implements OnInit {
   })
 }
 
-
+getSpareParts(pId : any){
+  this.sparePartService.getSparePartsByProduct(pId).subscribe(res => {
+    this.spareParts = res;
+    this.sparePartSelectList = this.spareParts.map(el => ({
+      label : el.name,
+      value : el.id,
+    }))
+  })
+}
 
 
 
@@ -137,7 +151,7 @@ export class OrderFormComponent implements OnInit {
     quantity: Number(quantity.value)
   };
 
- 
+    
 
     this.orderItems.push(this.buildOrderItem(orderItem));
 
@@ -157,10 +171,12 @@ removeItem(i : number){
 }
 
 insertItem(i:number){
- const insert = this.orderItems.at(i).patchValue({
+  
+   this.orderItems.at(i).patchValue({
    quantity : this.editForm.get('quantity').value
  });
- console.log(insert);
+
+ 
 }
 
 
@@ -207,16 +223,25 @@ private onSaveComplete(): void {
 }
 
 editItems(event){
+  // this.index = event.data.productId;
+  // console.log(this.index);
   this.quantity = event.data.quantity;
+  this.index = event.index;
+  console.log(this.index);
   this.displayDialog = true;
-  this.editForm.patchValue({
+   this.editForm.patchValue({
     quantity : this.quantity
   })
+  
+
 }
 
 saveItem(){
+  this.insertItem(this.index);
   this.displayDialog = false;
 }
+
+
 
 
 

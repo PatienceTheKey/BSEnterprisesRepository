@@ -33,7 +33,7 @@
      <div class="ui-g">
        <p-fieldset legend="OrderItems">
        <p-table [value]="orderItems.value" selectionMode="single"  [(selection)]="selectedOrderItem"
-       (onRowSelect)="editItems($event)" [paginator]="true" [expandedRowKeys]="expandedRows" rows="100">
+       (onRowSelect)="editItems($event)" [paginator]="true"  rows="100">
           <ng-template pTemplate="header">
               <tr>
                 
@@ -44,13 +44,14 @@
               </tr>
           </ng-template>
           <ng-template pTemplate="body" let-rowData let-item  let-rowIndex="rowIndex">
-              <tr [pSelectableRow]="item">
+              <tr [pSelectableRow]="item" [pSelectableRowIndex]="rowIndex">
+                
                 <td>{{getProductName(item.productId)}}</td>
                 <td>{{getSparePartName(item.sparePartId)}}</td>
                 <td>{{item.quantity}}</td>
                 <td>
                   <button pButton type="button" icon="fa fa-fw fa-trash" (click)="removeItem(rowIndex)"></button>
-                  <button pButton type="button" icon="fa fa-fw fa-edit" (click)="insertItem(rowIndex)"></button>
+                  
                 </td>
 
               </tr>
@@ -58,7 +59,7 @@
             <ng-template pTemplate="footer">
                 <tr>
                   <td>
-                    <p-dropdown [options]="productSelectList" id="orderShift" placeholder="Select"  [style]="{'width':'160px'}" filter="true" #pId>
+                    <p-dropdown [options]="productSelectList" id="orderShift" placeholder="Select"  [style]="{'width':'160px'}" filter="true"(onChange)="getSpareParts(pId.value)" #pId>
                         <ng-template let-option pTemplate="item">
                           <div translate>{{option.label}}</div>
                         </ng-template>

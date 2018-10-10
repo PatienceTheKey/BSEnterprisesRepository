@@ -24,6 +24,10 @@ export class ProductService extends ServiceBase<IProduct>{
 
     }
   }
+
+  getProductsByCompany(companyId : number){
+    return this.http.get(`${this.baseUrl}/Company?companyId=${companyId}`);
+  }
   
   }
   

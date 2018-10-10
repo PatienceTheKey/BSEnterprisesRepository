@@ -35,7 +35,7 @@ namespace BSEnterprises.WebApp.Api.ProductApi
          
          
          [HttpGet]
-        public async Task<IEnumerable<ProductResource>> GetCompanies()
+        public async Task<IEnumerable<ProductResource>> GetProducts()
         {
             var products = await _database.Products.Include(c => c.Company).Where(a=>a.IsActive == true).ToListAsync();
             return _mapper.Map<List<Product>, List<ProductResource>>(products).ToList();
@@ -47,6 +47,13 @@ namespace BSEnterprises.WebApp.Api.ProductApi
             var product = await _productRepository.GetAsync(id);
 
             return _mapper.Map<Product, SaveProductResource>(product);
+        }
+
+        [HttpGet("Company")]
+        public async Task<IEnumerable<ProductResource>> GetCompanies(int companyId)
+        {
+            var products = await _database.Products.Where(p => p.CompanyId == companyId).Where(a=>a.IsActive == true).ToListAsync();
+            return _mapper.Map<List<Product>, List<ProductResource>>(products).ToList();
         }
 
         [HttpPost]
