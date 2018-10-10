@@ -102,7 +102,8 @@ namespace BSEnterprises.WebApp.Api.OrderApi
     private static List<OrderItem> OrderItems(SaveOrderResource model)
         {
             return model.OrderItems.Select(item => OrderItem.Add(item.ProductId,
-                    item.SparePartId,item.Quantity))
+                    item.SparePartId,item.Quantity, item.CompanyId, 
+                    item.ReturnDefective, item.ReturnGood, item.LeftInBag))
                 .ToList();
         }
 
