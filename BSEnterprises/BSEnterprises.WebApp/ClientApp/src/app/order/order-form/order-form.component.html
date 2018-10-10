@@ -36,19 +36,25 @@
        (onRowSelect)="editItems($event)" [paginator]="true"  rows="100">
           <ng-template pTemplate="header">
               <tr>
-                
+                <th>Company Name</th>
                 <th>Product Name</th>
                 <th>Spare Part Name</th>
                 <th>Quantity</th>
+                <th>Return Good</th>
+                <th>Return Defective</th>
+                <th>Left In Bag</th>
                 <th></th>
               </tr>
           </ng-template>
           <ng-template pTemplate="body" let-rowData let-item  let-rowIndex="rowIndex">
               <tr [pSelectableRow]="item" [pSelectableRowIndex]="rowIndex">
-                
+                <td>{{getCompanyName(item.companyId)}}</td>
                 <td>{{getProductName(item.productId)}}</td>
                 <td>{{getSparePartName(item.sparePartId)}}</td>
                 <td>{{item.quantity}}</td>
+                <td>{{item.returnGood}}</td>
+                <td>{{item.returnDefective}}</td>
+                <td>{{item.leftInBag}}</td>
                 <td>
                   <button pButton type="button" icon="fa fa-fw fa-trash" (click)="removeItem(rowIndex)"></button>
                   
@@ -59,24 +65,40 @@
             <ng-template pTemplate="footer">
                 <tr>
                   <td>
-                    <p-dropdown [options]="productSelectList" id="orderShift" placeholder="Select"  [style]="{'width':'160px'}" filter="true"(onChange)="getSpareParts(pId.value)" #pId>
+                      <p-dropdown [options]="companySelectList" id="orderShift" placeholder="Select"  [style]="{'width':'120px'}" filter="true"(onChange)="getProducts(cId.value)" #cId>
+                          <ng-template let-option pTemplate="item">
+                            <div translate>{{option.label}}</div>
+                          </ng-template>
+                        </p-dropdown>
+                 </td>
+                  <td>
+                    <p-dropdown [options]="productSelectList" id="orderShift" placeholder="Select"  [style]="{'width':'120px'}" filter="true"(onChange)="getSpareParts(pId.value)" #pId>
                         <ng-template let-option pTemplate="item">
                           <div translate>{{option.label}}</div>
                         </ng-template>
                       </p-dropdown>
                   </td>
                   <td>
-                    <p-dropdown [options]="sparePartSelectList" id="orderShift" placeholder="Select"  [style]="{'width':'160px'}" filter="true" #sparePartItem>
+                    <p-dropdown [options]="sparePartSelectList" id="orderShift" placeholder="Select"  [style]="{'width':'120px'}" filter="true" #sparePartItem>
                       <ng-template let-option pTemplate="item">
                         <div translate>{{option.label}}</div>
                       </ng-template>
                     </p-dropdown>
                   </td>
                   <td>
-                      <input pInputText  placeholder="Quantity" #quantity/>
+                      <input pInputText  placeholder="Quantity" #quantity style="width:100%"/>
                   </td>
                   <td>
-                      <button pButton type="button" (click)="addOrderItems(pId,quantity,sparePartItem)" icon="fa fa-fw fa-plus"></button>
+                      <input pInputText  placeholder="Return Good" #rG style="width:100%"/>
+                  </td>
+                  <td>
+                      <input pInputText  placeholder="Return Defective" #rD style="width:100%"/>
+                  </td>
+                  <td>
+                      <input pInputText  placeholder="Left in Bag" #lId style="width:100%"/>
+                  </td>
+                  <td>
+                      <button pButton type="button" (click)="addOrderItems(pId,quantity,sparePartItem,rG,rD,cId,lId)" icon="fa fa-fw fa-plus"></button>
                   </td>
                 </tr>
              </ng-template>     
@@ -103,12 +125,27 @@
 <div class="ui-g">
 
 <div class="ui-g-5">
-<label style="margin-top:5px;"  for="quantity">Quantity</label>
+<label style="margin-top:5px;"  for="quantity">Return Good</label>
 </div>
 <div class="ui-g-7">
-  <input pInputText type="text"  id="quantity" formControlName="quantity" style="width:160px" onlyNumber="true">
+  <input pInputText type="text"  id="quantity" formControlName="returnGood" style="width:160px" onlyNumber="true">
   
 </div>
+<div class="ui-g-5">
+    <label style="margin-top:5px;"  for="quantity">Return Defective</label>
+    </div>
+    <div class="ui-g-7">
+      <input pInputText type="text"  id="quantity" formControlName="returnDefective" style="width:160px" onlyNumber="true">
+      
+    </div>
+
+    <div class="ui-g-5">
+        <label style="margin-top:5px;"  for="quantity">Left In Bag</label>
+        </div>
+        <div class="ui-g-7">
+          <input pInputText type="text"  id="quantity" formControlName="leftInBag" style="width:160px" onlyNumber="true">
+          
+        </div>   
 </div>
 
 <p-footer>

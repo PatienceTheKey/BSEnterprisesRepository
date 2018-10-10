@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ServiceBase } from '../../../shared/service-base';
 import { HttpClient } from '@angular/common/http';
 import { IProduct } from 'src/app/master/components/product/iproduct';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,8 @@ export class ProductService extends ServiceBase<IProduct>{
     }
   }
 
-  getProductsByCompany(companyId : number){
-    return this.http.get(`${this.baseUrl}/Company?companyId=${companyId}`);
+  getProductsByCompany(companyId : number):Observable<IProduct[]>{
+    return this.http.get<IProduct[]>(`${this.baseUrl}/Company?companyId=${companyId}`);
   }
   
   }

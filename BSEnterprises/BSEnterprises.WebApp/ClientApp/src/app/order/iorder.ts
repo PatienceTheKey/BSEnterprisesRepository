@@ -11,4 +11,8 @@ id : number;
 productId: number,
 sparePartId: number,
 quantity: number,
+companyId : number,
+returnGood : number,
+returnDefective : number,
+leftInBag : number;
 }
