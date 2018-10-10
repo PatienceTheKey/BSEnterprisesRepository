@@ -14,6 +14,7 @@ import { SelectItem } from 'primeng/api';
 import { EventListener } from '@angular/core/src/debug/debug_node';
 import { ICompany } from 'src/app/master/components/company/icompany';
 import { CompanyService } from 'src/app/master/components/company/company.service';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-order-form',
@@ -27,6 +28,8 @@ export class OrderFormComponent implements OnInit {
   pageTitle;
   products: IProduct[];
   spareParts: ISparePart[];
+  product;
+  sparePart;
   orderForm : FormGroup;
   engineers : IEngineer[];
   engineerSelectList : SelectItem[];
@@ -41,7 +44,10 @@ export class OrderFormComponent implements OnInit {
   index: any;
   company : ICompany[];
   companySelectList : SelectItem[];
-  leftInBag: any;
+
+
+  cId:any;
+
 
   constructor(private orderService : OrderService,
               private route : ActivatedRoute,
@@ -57,6 +63,7 @@ export class OrderFormComponent implements OnInit {
       this.id = params['id'];
       this.getOrder(this.id);
   });
+
 
   this.engineerService.getAll().subscribe(res => {
     this.engineers = res;
@@ -77,13 +84,15 @@ export class OrderFormComponent implements OnInit {
 
 
 
-  // this.productService.getAll().subscribe(res => {
-  //   this.products = res;
-  //   this.productSelectList = this.products.map(el => ({
-  //     label : el.name,
-  //     value : el.id,
-  //   }))
-  // })
+  this.productService.getAll().subscribe(res => {
+    this.product = res;
+   
+  })
+ 
+  this.sparePartService.getAll().subscribe(res => {
+    this.sparePart = res;
+   
+  })
 
   // this.sparePartService.getAll().subscribe(res => {
   //   this.spareParts = res;
@@ -102,9 +111,8 @@ export class OrderFormComponent implements OnInit {
   })
 
   this.editForm = this.fb.group({
-    returnGood : [],
-    returnDefective : [],
-    leftInBag : []
+    returnDefective : [0],
+  
   })
 }
 
@@ -168,7 +176,7 @@ getSpareParts(pId : any){
       return <FormArray>this.orderForm.get('orderItems');
     }
 
-    addOrderItems(pId: any, quantity: HTMLInputElement, sparePartItem: any,rG : any,rD : any,cId : any,lIb:any): void {
+    addOrderItems(pId: any, quantity: HTMLInputElement, sparePartItem: any, rD : any,cId : any): void {
 
   let product = this.products.find(p => p.id == Number(pId.value));
 
@@ -177,12 +185,13 @@ getSpareParts(pId : any){
     productId: Number(pId.value),
     sparePartId: Number(sparePartItem.value),
     quantity: Number(quantity.value),
-    returnGood : Number(rG.value),
     returnDefective : Number(rD.value),
     companyId : Number(cId.value),
-    leftInBag : Number(lIb.value)
+    leftInBag :Number(quantity.value) - Number(rD.value),
   };
 
+
+  
     
 
     this.orderItems.push(this.buildOrderItem(orderItem));
@@ -193,9 +202,12 @@ getSpareParts(pId : any){
     pId.focus();
     return;
   
-
-  
 }
+
+
+
+
+
 
 
 removeItem(i : number){
@@ -205,10 +217,9 @@ removeItem(i : number){
 insertItem(i:number){
   
    this.orderItems.at(i).patchValue({
-   returnGood : this.editForm.get('returnGood').value,
    returnDefective : this.editForm.get('returnDefective').value,
-   leftInBag : this.editForm.get('leftInBag').value
- });
+
+    });
 
  
 }
@@ -220,7 +231,6 @@ private buildOrderItem(orderItem: IOrderItems): FormGroup {
     quantity: [orderItem.quantity, [Validators.required]],
     sparePartId: [orderItem.sparePartId, [Validators.required]],
     companyId: [orderItem.companyId, [Validators.required]],
-    returnGood: [orderItem.returnGood, [Validators.required]],
     returnDefective: [orderItem.returnDefective, [Validators.required]],
     leftInBag : [orderItem.leftInBag,[Validators.required]]
   });
@@ -228,23 +238,25 @@ private buildOrderItem(orderItem: IOrderItems): FormGroup {
 }
 
 getProductName(id: number): string {
-  if (this.products) {
-    return this.products.find(p => p.id == id).name;
+  if (this.product) {
+    return this.product.find(p => p.id == id).name;
   }
 }
 
 getCompanyName(id: number): string {
-  if (this.products) {
-    return this.products.find(p => p.id == id).name;
+  if (this.company) {
+    return this.company.find(p => p.id == id).name;
   }
 }
 
 
 getSparePartName(id: number): string {
-  if (this.spareParts) {
-    return this.spareParts.find(p => p.id == id).name;
+  if (this.sparePart) {
+    return this.sparePart.find(p => p.id == id).name;
   }
 }
+
+
 
 
 
@@ -269,25 +281,63 @@ private onSaveComplete(): void {
 editItems(event){
   // this.index = event.data.productId;
   // console.log(this.index);
-  this.returnGood = event.data.returnGood;
+  
   this.returnDefective = event.data.returnDefective;
-  this.leftInBag = event.data.leftInBag;
+  
   this.index = event.index;
   console.log(this.index);
   this.displayDialog = true;
    this.editForm.patchValue({
-    returnGood : this.returnGood,
     returnDefective : this.returnDefective,
-    leftInBag : this.leftInBag
+
+    addOrderItems(pId: any, quantity: HTMLInputElement, sparePartItem: any, rD : any,cId : any): void {
+
+      let product = this.products.find(p => p.id == Number(pId.value));
+    
+      let orderItem: IOrderItems = {
+        id : Number(),
+        productId: Number(pId.value),
+        sparePartId: Number(sparePartItem.value),
+        quantity: Number(quantity.value),
+        returnDefective : Number(rD.value),
+        companyId : Number(cId.value),
+        leftInBag :Number(quantity.value) - Number(rD.value),
+      };
+    
+    
+      
+        
+    
+        this.orderItems.push(this.buildOrderItem(orderItem));
+    
+        quantity.value = null;
+        pId.value = null;
+        sparePartItem.value = null;
+        pId.focus();
+        return;
+      
+    }
+    
+    
+
+   
   })
+
+  
   
 
 }
 
 saveItem(){
   this.insertItem(this.index);
+  
   this.displayDialog = false;
+
+  
+  
 }
+
+
 
 
 

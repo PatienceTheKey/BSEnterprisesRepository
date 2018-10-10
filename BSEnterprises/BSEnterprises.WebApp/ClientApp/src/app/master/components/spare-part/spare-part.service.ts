@@ -24,6 +24,7 @@ export class SparePartService extends ServiceBase<ISparePart>{
       id : 0,
       name : '',
       productId: 0,
+      hsnSac: ''
 
     }
   }

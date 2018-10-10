@@ -7,6 +7,10 @@ namespace BSEnterprises.WebApp.Api.SparePartApi
         public int Id { get; set; }
         public string Name { get; set; }
 
+        public double? RateOfTax { get; set; }
+        public string HsnSac { get; set; }
+
+
         public double? Price { get; set; }
 
         public Product Product { get; set; }

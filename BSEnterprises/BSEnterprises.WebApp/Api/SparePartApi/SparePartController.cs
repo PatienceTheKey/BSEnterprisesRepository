@@ -64,7 +64,8 @@ namespace BSEnterprises.WebApp.Api.SparePartApi
 
                 
 
-            var sparePart = new SparePart(model.Name,  model?.Price, model.ProductId);
+            var sparePart = new SparePart(model.Name,  model?.Price, model?.RateOfTax,
+            model.HsnSac, model.ProductId);
 
 
             _sparePartRepository.Add(sparePart);
@@ -88,7 +89,8 @@ namespace BSEnterprises.WebApp.Api.SparePartApi
                 return NotFound();
             }
 
-            sparePartFromDb.Modify(model.Name,  model?.Price, model.ProductId);
+            sparePartFromDb.Modify(model.Name,  model?.Price, model?.RateOfTax,
+            model.HsnSac, model.ProductId);
             await _unitOfWork.CompleteAsync();
 
             return Ok(_mapper.Map<SparePart, SparePartResource>(sparePartFromDb));

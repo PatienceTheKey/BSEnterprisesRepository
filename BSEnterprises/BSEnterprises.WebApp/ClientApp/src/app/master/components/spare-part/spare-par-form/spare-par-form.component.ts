@@ -74,6 +74,8 @@ export class SpareParFormComponent implements OnInit {
     return this.fb.group({
       name: ['', ],
       price: [0 ],
+      hsnSac: [''],
+      rateOfTax: [0],
       productId: ['']
                 //  openBalance: [0,Validators.required],
   });
@@ -103,7 +105,9 @@ private onSparePartRetrieved(sparePart:ISparePart): void{
     this.sparePartForm.patchValue({
         name: this.sparePart.name,
         price: this.sparePart.price,
-        productId: this.sparePart.productId
+        productId: this.sparePart.productId,
+        hsnSac: this.sparePart.hsnSac,
+        rateOfTax: this.sparePart.rateOfTax,
         
        
     

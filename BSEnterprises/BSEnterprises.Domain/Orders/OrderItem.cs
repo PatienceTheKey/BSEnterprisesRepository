@@ -17,7 +17,6 @@ namespace BSEnterprises.Domain.Orders
         public int CompanyId {get; set;}
         public double Quantity { get; set; }
 
-        public double ReturnGood { get; set; }
         public double ReturnDefective { get; set; }
         public double LeftInBag { get; set; }
         public Order Orders { get; set; }
@@ -26,7 +25,7 @@ namespace BSEnterprises.Domain.Orders
 
         }
         public OrderItem(int productId,int sparePartId,double quantity, int companyId,
-                         double returnDefective, double returnGood,
+                         double returnDefective, 
                             double leftInBag)
         {
             ProductId = productId;
@@ -36,11 +35,11 @@ namespace BSEnterprises.Domain.Orders
             ReturnDefective = returnDefective;
         }
         public static OrderItem Add(int productId,int sparePartId, double quantity,
-                                     int companyId,  double returnDefective, double returnGood,
+                                     int companyId,  double returnDefective, 
                                       double leftInBag )
         {
             return new OrderItem(productId,sparePartId, quantity, companyId,
-                                 returnDefective, returnGood, leftInBag );
+                                 returnDefective,  leftInBag );
         }
 
     }

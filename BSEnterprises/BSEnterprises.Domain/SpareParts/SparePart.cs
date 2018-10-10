@@ -10,9 +10,12 @@ namespace BSEnterprises.Domain.SpareParts
         public string Name { get; set; }    
 
         public double? Price { get; set; }
+        public double? RateOfTax { get; set; }
+        public string HsnSac { get; set; }
 
         public Product Product { get; set; }
         public int ProductId { get; set; }
+
         public bool IsActive { get; set; }
         public IEnumerable<OrderItem> OrderItems { get; set; }
 
@@ -21,20 +24,24 @@ namespace BSEnterprises.Domain.SpareParts
             
         }
 
-        public SparePart(string name, double? price, int productId)
+        public SparePart(string name, double? price, double? rateOfTax, string hsnSac, int productId)
         {
             Name = name;
             Price = price;
             ProductId = productId;
+            RateOfTax = rateOfTax;
+            HsnSac = hsnSac;
             IsActive = true;
         
         }
 
-        public void Modify(string name, double? price, int productId)
+        public void Modify(string name, double? price, double? rateOfTax, string hsnSac, int productId)
         {
             Name = name;
             Price = price;
             ProductId = productId;
+              RateOfTax = rateOfTax;
+            HsnSac = hsnSac;
             IsActive = true;
         }
 

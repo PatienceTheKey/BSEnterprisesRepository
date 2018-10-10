@@ -88,7 +88,7 @@ private onCompanyRetrieved(company:ICompany): void{
     this.pageTitle = `Edit Company: ${this.company.name}`;
         this.companyForm.patchValue({
         name: this.company.name,
-        company: this.company.contactNumber,
+        contactNumber: this.company.contactNumber,
     
     
 });

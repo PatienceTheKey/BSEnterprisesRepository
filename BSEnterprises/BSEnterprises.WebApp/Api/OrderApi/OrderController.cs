@@ -103,7 +103,7 @@ namespace BSEnterprises.WebApp.Api.OrderApi
         {
             return model.OrderItems.Select(item => OrderItem.Add(item.ProductId,
                     item.SparePartId,item.Quantity, item.CompanyId, 
-                    item.ReturnDefective, item.ReturnGood, item.LeftInBag))
+                    item.ReturnDefective,  item.LeftInBag))
                 .ToList();
         }
 

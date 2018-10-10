@@ -1,3 +1,4 @@
+<br>
 <button pButton type="button" [routerLink]="['../']" label="Back To List"></button>
 
 <br />
@@ -31,7 +32,7 @@
 
      <br />
      <div class="ui-g">
-       <p-fieldset legend="OrderItems">
+       <p-fieldset legend="Order Items">
        <p-table [value]="orderItems.value" selectionMode="single"  [(selection)]="selectedOrderItem"
        (onRowSelect)="editItems($event)" [paginator]="true"  rows="100">
           <ng-template pTemplate="header">
@@ -40,7 +41,7 @@
                 <th>Product Name</th>
                 <th>Spare Part Name</th>
                 <th>Quantity</th>
-                <th>Return Good</th>
+                
                 <th>Return Defective</th>
                 <th>Left In Bag</th>
                 <th></th>
@@ -52,7 +53,6 @@
                 <td>{{getProductName(item.productId)}}</td>
                 <td>{{getSparePartName(item.sparePartId)}}</td>
                 <td>{{item.quantity}}</td>
-                <td>{{item.returnGood}}</td>
                 <td>{{item.returnDefective}}</td>
                 <td>{{item.leftInBag}}</td>
                 <td>
@@ -88,21 +88,19 @@
                   <td>
                       <input pInputText  placeholder="Quantity" #quantity style="width:100%"/>
                   </td>
-                  <td>
-                      <input pInputText  placeholder="Return Good" #rG style="width:100%"/>
-                  </td>
+                  
                   <td>
                       <input pInputText  placeholder="Return Defective" #rD style="width:100%"/>
                   </td>
+                  
+            
                   <td>
-                      <input pInputText  placeholder="Left in Bag" #lId style="width:100%"/>
-                  </td>
-                  <td>
-                      <button pButton type="button" (click)="addOrderItems(pId,quantity,sparePartItem,rG,rD,cId,lId)" icon="fa fa-fw fa-plus"></button>
+                      <button pButton type="button" (click)="addOrderItems(pId,quantity,sparePartItem,rD,cId)" icon="fa fa-fw fa-plus"></button>
                   </td>
                 </tr>
              </ng-template>     
        </p-table>
+       <br>
        <div class="ui-g-4 ui-g-offset-5">
         <button pButton type="submit" label="Save and Next" class="ui-button-success"></button>
         
@@ -110,7 +108,7 @@
       </p-fieldset>
      </div>
 </p-fieldset>
-<pre>{{orderForm.value | json}}</pre>
+<!-- <pre>{{orderForm.value | json}}</pre> -->
 </form>
 
 <form [formGroup]="editForm" (ngSubmit) = "saveItem()">
@@ -124,13 +122,7 @@
   [width]="500" >
 <div class="ui-g">
 
-<div class="ui-g-5">
-<label style="margin-top:5px;"  for="quantity">Return Good</label>
-</div>
-<div class="ui-g-7">
-  <input pInputText type="text"  id="quantity" formControlName="returnGood" style="width:160px" onlyNumber="true">
-  
-</div>
+
 <div class="ui-g-5">
     <label style="margin-top:5px;"  for="quantity">Return Defective</label>
     </div>
@@ -138,14 +130,6 @@
       <input pInputText type="text"  id="quantity" formControlName="returnDefective" style="width:160px" onlyNumber="true">
       
     </div>
-
-    <div class="ui-g-5">
-        <label style="margin-top:5px;"  for="quantity">Left In Bag</label>
-        </div>
-        <div class="ui-g-7">
-          <input pInputText type="text"  id="quantity" formControlName="leftInBag" style="width:160px" onlyNumber="true">
-          
-        </div>   
 </div>
 
 <p-footer>
