@@ -44,9 +44,10 @@ export class OrderFormComponent implements OnInit {
   index: any;
   company : ICompany[];
   companySelectList : SelectItem[];
+  quantity;
+  leftInBag;
 
-
-  cId:any;
+  
 
 
   constructor(private orderService : OrderService,
@@ -94,16 +95,6 @@ export class OrderFormComponent implements OnInit {
    
   })
 
-  // this.sparePartService.getAll().subscribe(res => {
-  //   this.spareParts = res;
-  //   this.sparePartSelectList = this.spareParts.map(el => ({
-  //     label : el.name,
-  //     value : el.id,
-  //   }))
-  // })
-
-  
-
   this.orderForm = this.fb.group({
     engineerId :[],
     orderDate : new Date(),
@@ -112,7 +103,8 @@ export class OrderFormComponent implements OnInit {
 
   this.editForm = this.fb.group({
     returnDefective : [0],
-  
+    quantity : [],
+    leftInBag : [] 
   })
 }
 
@@ -190,38 +182,26 @@ getSpareParts(pId : any){
     leftInBag :Number(quantity.value) - Number(rD.value),
   };
 
-
-  
-    
-
-    this.orderItems.push(this.buildOrderItem(orderItem));
-
-    quantity.value = null;
-    pId.value = null;
-    sparePartItem.value = null;
-    pId.focus();
+   this.orderItems.push(this.buildOrderItem(orderItem));
+    // cId.value = null;
+    // quantity.value = null;
+    // pId.value = null;
+    // sparePartItem.value = null;
+    cId.focus();
     return;
   
 }
-
-
-
-
-
-
 
 removeItem(i : number){
   this.orderItems.removeAt(i);
 }
 
 insertItem(i:number){
-  
-   this.orderItems.at(i).patchValue({
+  this.orderItems.at(i).patchValue({
    returnDefective : this.editForm.get('returnDefective').value,
+   leftInBag : this.editForm.get('quantity').value - this.editForm.get('returnDefective').value 
 
     });
-
- 
 }
 
 
@@ -256,10 +236,6 @@ getSparePartName(id: number): string {
   }
 }
 
-
-
-
-
 saveOrder(): void {
 
 
@@ -273,14 +249,13 @@ saveOrder(): void {
 private onSaveComplete(): void {
 
   let displayMsg = this.id == 0 ? "Saved" : "Updated";
-
-
   this.router.navigate(['../'], { relativeTo: this.route });
 }
 
 editItems(event){
   // this.index = event.data.productId;
   // console.log(this.index);
+  this.quantity = event.data.quantity;
   
   this.returnDefective = event.data.returnDefective;
   
@@ -289,63 +264,18 @@ editItems(event){
   this.displayDialog = true;
    this.editForm.patchValue({
     returnDefective : this.returnDefective,
-
-    addOrderItems(pId: any, quantity: HTMLInputElement, sparePartItem: any, rD : any,cId : any): void {
-
-      let product = this.products.find(p => p.id == Number(pId.value));
-    
-      let orderItem: IOrderItems = {
-        id : Number(),
-        productId: Number(pId.value),
-        sparePartId: Number(sparePartItem.value),
-        quantity: Number(quantity.value),
-        returnDefective : Number(rD.value),
-        companyId : Number(cId.value),
-        leftInBag :Number(quantity.value) - Number(rD.value),
-      };
-    
-    
-      
-        
-    
-        this.orderItems.push(this.buildOrderItem(orderItem));
-    
-        quantity.value = null;
-        pId.value = null;
-        sparePartItem.value = null;
-        pId.focus();
-        return;
-      
-    }
-    
-    
-
+    quantity : this.quantity,
+    leftInBag : this.quantity - this.returnDefective
    
   })
-
-  
-  
-
 }
 
 saveItem(){
   this.insertItem(this.index);
   
   this.displayDialog = false;
-
-  
-  
 }
-
-
-
-
-
-
-
-
-
-  }
+}
 
 
 

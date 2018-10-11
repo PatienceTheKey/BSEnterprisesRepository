@@ -1,3 +1,4 @@
+using System;
 using BSEnterprises.Domain.Products;
 
 namespace BSEnterprises.WebApp.Api.SparePartApi
@@ -15,6 +16,8 @@ namespace BSEnterprises.WebApp.Api.SparePartApi
 
         public Product Product { get; set; }
         public int ProductId { get; set; }
+        public double StockInHand { get; set; }
+        public DateTime OpeningDate { get; set; }
 
 
     }

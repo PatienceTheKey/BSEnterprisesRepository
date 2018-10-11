@@ -80,7 +80,7 @@ namespace BSEnterprises.WebApp.Api.OrderApi
             orderFromDb.Modify(model.OrderDate, model.EngineerId, OrderItems(model));
             await _unitOfWork.CompleteAsync();
 
-            return Ok(_mapper.Map<Order, OrderResource>(orderFromDb));
+            return Ok(_mapper.Map<Order, SaveOrderResource>(orderFromDb));
         }
 
         [HttpDelete("{id}")]
