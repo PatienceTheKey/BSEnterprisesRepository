@@ -1,4 +1,5 @@
 using System.Linq;
+using BSEnterprises.Domain.BillingSpareParts;
 using BSEnterprises.Domain.Companies;
 using BSEnterprises.Domain.Engineers;
 using BSEnterprises.Domain.Orders;
@@ -22,6 +23,8 @@ namespace BSEnterprises.Persistence
         public IQueryable<Product> Products => _context.Products.AsNoTracking();
 
         public IQueryable<SparePart> SpareParts => _context.SpareParts.AsNoTracking();
+        public IQueryable<BillingSparePart> BillingSpareParts => _context.BillingSpareParts.AsNoTracking();
+        public IQueryable<BillingSparePartItem> BillingSparePartItems => _context.BillingSparePartItems.AsNoTracking();
 
         public IQueryable<Order> Orders => _context.Orders.AsNoTracking();
 

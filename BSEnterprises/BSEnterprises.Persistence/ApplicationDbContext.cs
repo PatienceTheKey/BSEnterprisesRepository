@@ -1,3 +1,4 @@
+using BSEnterprises.Domain.BillingSpareParts;
 using BSEnterprises.Domain.Companies;
 using BSEnterprises.Domain.Engineers;
 using BSEnterprises.Domain.Orders;
@@ -18,6 +19,8 @@ namespace BSEnterprises.Persistence
       public DbSet<Engineer> Engineers {get; set;}
       public DbSet<Product> Products {get; set;}
       public DbSet<SparePart> SpareParts {get; set;}
+      public DbSet<BillingSparePart> BillingSpareParts {get; set;}
+      public DbSet<BillingSparePartItem> BillingSparePartItems {get; set;}
       public DbSet<Order> Orders { get; set; }
       public DbSet<OrderItem> OrderItems { get; set; }
 

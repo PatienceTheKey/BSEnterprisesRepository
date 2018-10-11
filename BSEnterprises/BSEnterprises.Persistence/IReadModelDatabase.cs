@@ -1,4 +1,13 @@
+
+
+
+
+
+
+
+
 using System.Linq;
+using BSEnterprises.Domain.BillingSpareParts;
 using BSEnterprises.Domain.Companies;
 using BSEnterprises.Domain.Engineers;
 using BSEnterprises.Domain.Orders;
@@ -15,5 +24,8 @@ namespace BSEnterprises.Persistence
         IQueryable<SparePart> SpareParts { get; }
         IQueryable<Order> Orders { get; }
         IQueryable<OrderItem> OrderItems {get;}
+        IQueryable<BillingSparePart> BillingSpareParts { get; }
+        IQueryable<BillingSparePartItem> BillingSparePartItems {get;}
+ 
     }
 }
