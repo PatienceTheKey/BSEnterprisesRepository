@@ -1,3 +1,6 @@
+using BSEnterprises.Domain.Orders;
+using System.Collections.Generic;
+
 namespace BSEnterprises.Domain.Companies
 {
     public class Company
@@ -6,6 +9,7 @@ namespace BSEnterprises.Domain.Companies
         public string Name { get; set; }
         public string ContactNumber { get; set; }
         public bool IsActive { get; set; }
+        public IEnumerable<OrderItem> OrderItems { get; set; }
 
         public Company()
         {

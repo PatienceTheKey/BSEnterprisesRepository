@@ -4,10 +4,20 @@ using System.Collections.Generic;
 
 namespace BSEnterprises.Persistence.Migrations
 {
-    public partial class AlterTableSpareItems : Migration
+    public partial class addedSparePartAndChangesInCompany : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<string>(
+                name: "HsnSac",
+                table: "SpareParts",
+                nullable: true);
+
+            migrationBuilder.AddColumn<double>(
+                name: "RateOfTax",
+                table: "SpareParts",
+                nullable: true);
+
             migrationBuilder.AddColumn<int>(
                 name: "CompanyId",
                 table: "OrderItems",
@@ -26,12 +36,6 @@ namespace BSEnterprises.Persistence.Migrations
                 nullable: false,
                 defaultValue: 0.0);
 
-            migrationBuilder.AddColumn<double>(
-                name: "ReturnGood",
-                table: "OrderItems",
-                nullable: false,
-                defaultValue: 0.0);
-
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItems_CompanyId",
                 table: "OrderItems",
@@ -43,7 +47,7 @@ namespace BSEnterprises.Persistence.Migrations
                 column: "CompanyId",
                 principalTable: "Companies",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -57,6 +61,14 @@ namespace BSEnterprises.Persistence.Migrations
                 table: "OrderItems");
 
             migrationBuilder.DropColumn(
+                name: "HsnSac",
+                table: "SpareParts");
+
+            migrationBuilder.DropColumn(
+                name: "RateOfTax",
+                table: "SpareParts");
+
+            migrationBuilder.DropColumn(
                 name: "CompanyId",
                 table: "OrderItems");
 
@@ -66,10 +78,6 @@ namespace BSEnterprises.Persistence.Migrations
 
             migrationBuilder.DropColumn(
                 name: "ReturnDefective",
-                table: "OrderItems");
-
-            migrationBuilder.DropColumn(
-                name: "ReturnGood",
                 table: "OrderItems");
         }
     }

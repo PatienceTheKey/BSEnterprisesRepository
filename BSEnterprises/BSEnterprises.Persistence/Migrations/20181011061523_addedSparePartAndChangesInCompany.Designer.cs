@@ -11,8 +11,8 @@ using System;
 namespace BSEnterprises.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181010134633_AlterTableSpareItems")]
-    partial class AlterTableSpareItems
+    [Migration("20181011061523_addedSparePartAndChangesInCompany")]
+    partial class addedSparePartAndChangesInCompany
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -88,8 +88,6 @@ namespace BSEnterprises.Persistence.Migrations
 
                     b.Property<double>("ReturnDefective");
 
-                    b.Property<double>("ReturnGood");
-
                     b.Property<int>("SparePartId");
 
                     b.HasKey("Id");
@@ -130,6 +128,8 @@ namespace BSEnterprises.Persistence.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("HsnSac");
+
                     b.Property<bool>("IsActive");
 
                     b.Property<string>("Name");
@@ -137,6 +137,8 @@ namespace BSEnterprises.Persistence.Migrations
                     b.Property<double?>("Price");
 
                     b.Property<int>("ProductId");
+
+                    b.Property<double?>("RateOfTax");
 
                     b.HasKey("Id");
 
@@ -156,9 +158,9 @@ namespace BSEnterprises.Persistence.Migrations
             modelBuilder.Entity("BSEnterprises.Domain.Orders.OrderItem", b =>
                 {
                     b.HasOne("BSEnterprises.Domain.Companies.Company", "Company")
-                        .WithMany()
+                        .WithMany("OrderItems")
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BSEnterprises.Domain.Orders.Order", "Orders")
                         .WithMany("OrderItems")

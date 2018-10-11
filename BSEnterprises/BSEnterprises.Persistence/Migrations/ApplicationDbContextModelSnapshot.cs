@@ -157,9 +157,9 @@ namespace BSEnterprises.Persistence.Migrations
             modelBuilder.Entity("BSEnterprises.Domain.Orders.OrderItem", b =>
                 {
                     b.HasOne("BSEnterprises.Domain.Companies.Company", "Company")
-                        .WithMany()
+                        .WithMany("OrderItems")
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BSEnterprises.Domain.Orders.Order", "Orders")
                         .WithMany("OrderItems")

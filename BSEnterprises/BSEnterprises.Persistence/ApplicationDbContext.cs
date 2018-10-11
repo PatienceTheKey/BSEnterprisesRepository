@@ -33,6 +33,11 @@ namespace BSEnterprises.Persistence
               .WithMany(p => p.OrderItems)
               .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(fk => fk.Company)
+                .WithMany(p => p.OrderItems)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
 
     }
