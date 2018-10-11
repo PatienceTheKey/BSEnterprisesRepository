@@ -5,4 +5,6 @@ export interface ISparePart {
     rateOfTax?: number;
     hsnSac: string;
     productId: number;
+    stockInHand : number;
+    openingDate : Date;
 }

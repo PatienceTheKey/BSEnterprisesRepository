@@ -33,6 +33,7 @@ namespace BSEnterprises.Domain.Orders
             SparePartId = sparePartId;
             Quantity = quantity;
             ReturnDefective = returnDefective;
+            LeftInBag = leftInBag;
         }
         public static OrderItem Add(int productId,int sparePartId, double quantity,
                                      int companyId,  double returnDefective, 

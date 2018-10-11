@@ -76,7 +76,9 @@ export class SpareParFormComponent implements OnInit {
       price: [0 ],
       hsnSac: [''],
       rateOfTax: [0],
-      productId: ['']
+      productId: [''],
+      stockInHand : [0],
+      openingDate : new Date()
                 //  openBalance: [0,Validators.required],
   });
 }
@@ -100,7 +102,7 @@ private onSparePartRetrieved(sparePart:ISparePart): void{
    else
    {
     this.pageTitle = `Edit Spare Part: ${this.sparePart.name}`;
-    //  let opDate = new Date(this.customer.customerOpeningDate);
+      let opDate = new Date(this.sparePart.openingDate);
     // Update the data on the form
     this.sparePartForm.patchValue({
         name: this.sparePart.name,
@@ -108,6 +110,8 @@ private onSparePartRetrieved(sparePart:ISparePart): void{
         productId: this.sparePart.productId,
         hsnSac: this.sparePart.hsnSac,
         rateOfTax: this.sparePart.rateOfTax,
+        stockInHand : this.sparePart.stockInHand,
+        openingDate : new Date(opDate.getTime() + Math.abs(opDate.getTimezoneOffset() * 60000))
         
        
     

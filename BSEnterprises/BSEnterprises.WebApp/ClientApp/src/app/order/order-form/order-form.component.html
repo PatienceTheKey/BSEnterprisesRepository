@@ -108,7 +108,7 @@
       </p-fieldset>
      </div>
 </p-fieldset>
-<!-- <pre>{{orderForm.value | json}}</pre> -->
+<pre>{{orderForm.value | json}}</pre>
 </form>
 
 <form [formGroup]="editForm" (ngSubmit) = "saveItem()">
@@ -122,6 +122,14 @@
   [width]="500" >
 <div class="ui-g">
 
+    <!-- <div class="ui-g-5">
+        <label style="margin-top:5px;"  for="quantity">Quantity</label>
+        </div>
+        <div class="ui-g-7">
+          <input pInputText type="text"  id="quantity" formControlName="quantity" style="width:160px" readonly="true" onlyNumber="true">
+          
+        </div> -->
+
 
 <div class="ui-g-5">
     <label style="margin-top:5px;"  for="quantity">Return Defective</label>
@@ -130,6 +138,15 @@
       <input pInputText type="text"  id="quantity" formControlName="returnDefective" style="width:160px" onlyNumber="true">
       
     </div>
+
+    <!-- <div class="ui-g-5">
+        <label style="margin-top:5px;"  for="quantity">Left In Bag</label>
+        </div>
+        <div class="ui-g-7">
+          <input pInputText type="text"  id="quantity" formControlName="leftInBag" style="width:160px" readonly="true" onlyNumber="true">
+          
+        </div> -->
+
 </div>
 
 <p-footer>

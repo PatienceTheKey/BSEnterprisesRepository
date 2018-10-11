@@ -16,6 +16,7 @@ namespace BSEnterprises.WebApp.Api.SparePartApi
         public KeyValuePairResource Product { get; set; }
         
         public int ProductId { get; set; }
+        public double StockInHand { get; set; }
 
 
     }
