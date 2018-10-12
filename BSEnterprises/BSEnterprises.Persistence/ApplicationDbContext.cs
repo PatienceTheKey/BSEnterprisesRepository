@@ -4,6 +4,7 @@ using BSEnterprises.Domain.Engineers;
 using BSEnterprises.Domain.Orders;
 using BSEnterprises.Domain.Products;
 using BSEnterprises.Domain.SpareParts;
+using BSEnterprises.Domain.UserModule;
 using Microsoft.EntityFrameworkCore;
 
 namespace BSEnterprises.Persistence
@@ -14,7 +15,7 @@ namespace BSEnterprises.Persistence
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base((DbContextOptions)options)
         {
         }
-
+      public DbSet<User> Users { get; set; }
       public DbSet<Company> Companies {get; set;}
       public DbSet<Engineer> Engineers {get; set;}
       public DbSet<Product> Products {get; set;}

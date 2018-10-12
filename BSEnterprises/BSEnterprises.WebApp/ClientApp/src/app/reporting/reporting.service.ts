@@ -13,4 +13,7 @@ getReports(engineerId : number,fromDate : Date,toDate:Date,sparePartId:number){
   return this.http.get(`${this.baseUrl}?engineerId=${engineerId}&fromDate=${fromDate.toDateString()}
                                         &toDate=${toDate.toDateString()}&sparePartId=${sparePartId}`);
 }
+getInventories(sparePartId:number){
+  return this.http.get(`${this.baseUrl}/Inventory?sparePartId=${sparePartId}`);
+}
 }

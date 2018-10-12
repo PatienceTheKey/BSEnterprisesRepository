@@ -50,4 +50,6 @@ export class ReportingComponent implements OnInit {
     this.reportingService.getReports(this.engineerId,this.fromDate,this.toDate,this.sparePartId)
                                     .subscribe(res => this.reporting = res);
   }
+
+ 
 }
