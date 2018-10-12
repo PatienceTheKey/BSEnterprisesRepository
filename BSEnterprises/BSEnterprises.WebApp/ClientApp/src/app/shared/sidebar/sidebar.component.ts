@@ -44,6 +44,14 @@ export class SidebarComponent implements OnInit {
                {label : 'Spare Part Wise', routerLink:['/reporting/inventories']}
              ]
              },
+    
+    
+             {
+        label: 'Billing', expanded : true,
+             items : [
+               { label : 'Spare-part Invoice', routerLink : ['/billing/billing-spare-part']}
+             ]
+             },
 
 
      

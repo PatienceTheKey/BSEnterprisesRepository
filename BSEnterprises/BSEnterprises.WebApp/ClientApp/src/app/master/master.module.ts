@@ -56,10 +56,6 @@ const routes: Routes = [
         SpareParFormComponent,
         SparePartListComponent],
    
-        providers: [
-        CompanyService,
-        EngineerService,
-        ProductService,
-        SparePartService],
+
 })
 export class MasterModule { }
