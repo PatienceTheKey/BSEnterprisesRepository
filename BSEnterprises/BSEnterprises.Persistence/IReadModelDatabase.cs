@@ -1,15 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
 using System.Linq;
 using BSEnterprises.Domain.BillingSpareParts;
 using BSEnterprises.Domain.Companies;

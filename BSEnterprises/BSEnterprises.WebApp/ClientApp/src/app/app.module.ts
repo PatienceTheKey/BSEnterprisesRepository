@@ -14,6 +14,7 @@ import { SparePartService } from './master/components/spare-part/spare-part.serv
 import { EngineerService } from './master/components/engineer/engineer.service';
 import { OrderModule } from './order/order.module';
 import { ReportingModule } from './reporting/reporting.module';
+import { BillingSparePartService } from './billing/billing-spare-part.service';
 
 
 
@@ -41,7 +42,7 @@ import { ReportingModule } from './reporting/reporting.module';
     ])
 
   ],
-  providers: [CompanyService, ProductService, SparePartService,EngineerService],
+  providers: [CompanyService, ProductService, SparePartService,EngineerService, BillingSparePartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
