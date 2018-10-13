@@ -105,7 +105,7 @@ namespace BSEnterprises.WebApp.Api.BillingSparePartApi
     private static List<BillingSparePartItem> BillingSparePartItems(SaveBillingSparePartResource model)
         {
             return model.BillingSparePartItems.Select(item => BillingSparePartItem.Add(item.ProductId,
-                    item.Quantity,item.Discount, item.Rate, 
+                    item.Quantity,item.Discount, item.Rate, item.TaxableValue,
                     item.HsnCode,  item.IgstAmount, item.CgstAmount, item.SgstAmount,item.Total))
                 .ToList();
         }

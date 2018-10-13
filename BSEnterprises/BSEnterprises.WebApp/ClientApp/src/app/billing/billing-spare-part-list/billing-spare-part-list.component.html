@@ -1,3 +1,95 @@
-<p>
-  billing-spare-part-list works!
-</p>
+<p-growl [value]="msgs">
+</p-growl>
+<p-confirmDialog [(visible)]="displayDialog"></p-confirmDialog>
+<div class="container">
+    <div class="ui-g">
+        <div class="ui-g-10 ui-sm-10 ui-md-offset-1">
+            <div class="ui-g  ui-fluid">
+                <div class="ui-g-6 ui-sm-6">
+
+                    <p-button button type="button" label="Add" (onClick)="add()" class="ui-button-rounded ui-button-success" icon="fa fa-fw fa-plus"
+                        style="margin-bottom:10px;">
+                    </p-button>
+                </div>
+
+                <div class="ui-g-6 ui-sm-6">
+                    <div style="text-align: right">
+                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Search" (input)="dtc.filterGlobal($event.target.value, 'contains')"
+                            style="width:240px">
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g  ui-fluid">
+                <div class="ui-g-10 ui-sm-10">
+                    <div class="ui-g">
+                        <div class="ui-g-8 ui-sm-8 ui-md-8">
+                            <div class="ui-g">
+                                <div class="ui-sm-6 ui-md-6 ui-g-6">
+                                    <label for="toDate">From:</label>
+                                    <br>
+                                    <p-calendar [(ngModel)]="fromDate" dateFormat="dd.mm.yy" [showIcon]="true"></p-calendar>
+                                </div>
+                                <div class="ui-sm-6 ui-md-6 ui-g-6">
+                                    <label for="fromDate">To:</label>
+                                    <br>
+                                    <p-calendar [(ngModel)]="toDate" dateFormat="dd.mm.yy" [showIcon]="true"> </p-calendar>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ui-g-2 ui-sm-2 ui-md-2 ui-fluid ui-inputgroup">
+                            <br>
+                            <p-button (click)="searchByDate()" type="button" label="&nbsp;" class="ui-button-rounded" icon="fa fa-fw fa-search" style="margin-top:25px;">
+                            </p-button>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <p-table #dtc [value]="orders" (onRowSelect)="edit($event)" selectionMode="single" [(selection)]="selectedOrder"
+            [globalFilterFields]="['serviceRating','name','contact','typeOfQuery','visitorType']" [paginator]="true" [rows]="7"
+            [scrollable]="true" scrollHeight="250px">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Date</th>
+                    <th>Engineer</th>
+                    
+                    <th>Delete</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-order style="text-align: center;">
+                <tr [pSelectableRow]="rowData" style="text-align: center;">
+                    <td>{{order.orderDate | date:'dd/MM/yyyy'}}</td>
+                    <td>{{order.engineer.name}}</td>
+                    
+                    <td>
+                        <p-button type="button" label="Delete" class="ui-button-rounded ui-button-danger" icon="fa fa-fw fa-close" style="margin-bottom:10px;"
+                            (click)="showDialogToDelete(order)">
+                        </p-button>
+
+                    </td>
+
+                </tr>
+            </ng-template>
+        </p-table>
+    
+<br>
+<br>
+<!--summary content start -->
+
+<!-- <p-panel  [toggleable]="true"header="Company List Details :-"></p-panel>-->
+
+<!--summary content end -->
+    </div>
+</div>
+</div>
+
+
+
+
+ 

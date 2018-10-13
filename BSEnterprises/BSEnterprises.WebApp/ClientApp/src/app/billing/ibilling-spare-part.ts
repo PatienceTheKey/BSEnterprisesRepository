@@ -7,7 +7,8 @@ customerGstin: string;
 customerContact: number;
 placeOfSupply: string;
 totalInvoiceValue: number;
-billingSpareItems: IBillingSpareItems[]
+
+billingSparePartItems: IBillingSpareItems[]
 
 }
 
@@ -19,8 +20,10 @@ discount: number;
 rate: number;
 hsnCode: number;
 igstAmount: number;
+taxableValue: number;
 cgstAmount: number;
 sgstAmount: number;
+taxRate: number;
 total: number;
 
 }

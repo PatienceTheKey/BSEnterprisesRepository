@@ -27,7 +27,7 @@ export class BillingSparePartService extends ServiceBase<IBillingSparePart> {
       customerContact: 0,
       placeOfSupply: "",
       totalInvoiceValue: 0,
-      billingSpareItems: [],
+      billingSparePartItems: [],
     }
   }
 

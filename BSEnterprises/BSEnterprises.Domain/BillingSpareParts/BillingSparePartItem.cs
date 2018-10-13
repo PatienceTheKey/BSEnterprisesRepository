@@ -9,6 +9,7 @@ namespace BSEnterprises.Domain.BillingSpareParts
         public double Rate { get; set; }
 
         public string HsnCode { get; set; }
+        public double TaxableValue { get; set; }
         public double IgstAmount { get; set; }
         public double CgstAmount { get; set; }
         public double SgstAmount { get; set; }
@@ -21,13 +22,14 @@ namespace BSEnterprises.Domain.BillingSpareParts
 
         private readonly int productId;
 
-        public BillingSparePartItem(int productId, double quantity, double discount, double rate,
+        public BillingSparePartItem(int productId, double quantity, double discount, double rate, double taxableValue,
                               string hsnCode, double igstAmount, double cgstAmount, double sgstAmount, double total)
         {
             ProductId = productId;
             Quantity = quantity;
             Discount = discount;
             Rate = rate;
+            TaxableValue = taxableValue;
             HsnCode = hsnCode;
             IgstAmount = igstAmount;
             CgstAmount = cgstAmount;
@@ -36,10 +38,10 @@ namespace BSEnterprises.Domain.BillingSpareParts
         }
 
 
-   public static BillingSparePartItem Add(int productId, double quantity, double discount, double rate,
+   public static BillingSparePartItem Add(int productId, double quantity, double discount, double rate, double taxableValue,
                               string hsnCode, double igstAmount, double cgstAmount, double sgstAmount, double total )
         {
-            return new BillingSparePartItem( productId,  quantity,  discount,  rate,
+            return new BillingSparePartItem( productId,  quantity,  discount,  rate, taxableValue,
                                hsnCode,  igstAmount,  cgstAmount,  sgstAmount,  total );
         }
 

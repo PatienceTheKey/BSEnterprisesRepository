@@ -4,6 +4,7 @@ import { AuthenticatedUserComponent } from './components/authenticated-user/auth
 import { BrowserModule } from '@angular/platform-browser';
 import { PrimeNgModule } from './primeng/primeng.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -11,11 +12,17 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     imports: [
         BrowserModule,
         AngularMaterialModule,
-        PrimeNgModule
+        PrimeNgModule,
+        FormsModule,
+    ReactiveFormsModule,
+
     ],
     exports: [
         AngularMaterialModule,
-        PrimeNgModule
+        PrimeNgModule,
+        FormsModule,
+    ReactiveFormsModule,
+
         
             ],
     declarations: [

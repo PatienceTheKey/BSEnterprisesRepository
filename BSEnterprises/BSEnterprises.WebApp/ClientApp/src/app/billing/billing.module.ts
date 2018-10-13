@@ -4,6 +4,8 @@ import { BillingSparePartComponent } from './billing-spare-part/billing-spare-pa
 import { BillingSparePartListComponent } from './billing-spare-part-list/billing-spare-part-list.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthenticatedUserComponent } from '../shared/components/authenticated-user/authenticated-user.component';
+import { SharedModule } from '../shared/shared.module';
+
 
 const routes: Routes = [
   {
@@ -22,6 +24,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
+    
     RouterModule.forChild(routes)
 
   ],
