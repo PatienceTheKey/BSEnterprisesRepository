@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BSEnterprises.Domain.BillingSpareParts;
+using BSEnterprises.Domain.UserModule;
 using BSEnterprises.Persistence;
+using BSEnterprises.WebApp.Api.UserApi;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +14,7 @@ namespace BSEnterprises.WebApp.Api.BillingSparePartApi
 {
     [Produces("application/json")]
     [Route("BillingSparePart")]
-    public class BillingSparePartController : Controller
+    public class BillingSparePartController : UserController
     {
         private readonly IReadModelDatabase _database;
         private readonly IMapper _mapper;
@@ -21,7 +23,7 @@ namespace BSEnterprises.WebApp.Api.BillingSparePartApi
 
         public BillingSparePartController( IReadModelDatabase database, IMapper mapper, 
                                 IBillingSparePartRepository billingSparePartRepository,
-                                IUnitOfWork unitOfWork)
+                                IUnitOfWork unitOfWork,IUserRepository userRepository) : base(database,mapper,unitOfWork,userRepository)
         {
             _database = database;
             _mapper = mapper;
@@ -55,7 +57,7 @@ namespace BSEnterprises.WebApp.Api.BillingSparePartApi
           
             var newBillingSparePart = new BillingSparePart( model.CustomerName, model.Date,
                                         model.CustomerState, model.CustomerGstin, model.CustomerContact,
-                                        model.PlaceOfSupply, model.TotalInvoiceValue, BillingSparePartItems(model));
+                                        model.PlaceOfSupply, model.TotalInvoiceValue,UserId,BillingSparePartItems(model));
 
             _billingSparePartRepository.Add(newBillingSparePart);
             await _unitOfWork.CompleteAsync();
@@ -116,7 +118,7 @@ namespace BSEnterprises.WebApp.Api.BillingSparePartApi
 
         private Task<BillingSparePart> FindOrderById(int id)
         {
-            return _billingSparePartRepository.GetAsync(id);
+            return _billingSparePartRepository.GetAsync(id,UserId);
         }
     }
 }

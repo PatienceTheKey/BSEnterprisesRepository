@@ -3,7 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BSEnterprises.Domain.SpareParts;
+using BSEnterprises.Domain.UserModule;
 using BSEnterprises.Persistence;
+using BSEnterprises.WebApp.Api.UserApi;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +13,7 @@ namespace BSEnterprises.WebApp.Api.SparePartApi
 {
     [Produces("application/json")]
     [Route("api/SpareParts")]
-      public class SparePartController: Controller
+      public class SparePartController: UserController
     {
         
       private readonly IReadModelDatabase _database;
@@ -19,7 +21,8 @@ namespace BSEnterprises.WebApp.Api.SparePartApi
         private readonly ISparePartRepository _sparePartRepository;
         private readonly IUnitOfWork _unitOfWork;
         public SparePartController(IReadModelDatabase database, IMapper mapper,
-                                    ISparePartRepository sparePartRepository, IUnitOfWork unitOfWork)
+                                    ISparePartRepository sparePartRepository, IUnitOfWork unitOfWork,IUserRepository userRepository)
+                                    : base(database,mapper,unitOfWork,userRepository)
         {
             _unitOfWork = unitOfWork;
             _sparePartRepository = sparePartRepository;
@@ -41,7 +44,7 @@ namespace BSEnterprises.WebApp.Api.SparePartApi
         [HttpGet("{id}")]
         public async Task<SaveSparePartResource> GetById(int id)
         {
-            var sparePart = await _sparePartRepository.GetAsync(id);
+            var sparePart = await _sparePartRepository.GetAsync(id,UserId);
 
             return _mapper.Map<SparePart, SaveSparePartResource>(sparePart);
         }
@@ -65,7 +68,7 @@ namespace BSEnterprises.WebApp.Api.SparePartApi
                 
 
             var sparePart = new SparePart(model.Name,  model?.Price, model?.RateOfTax,
-            model.HsnSac, model.ProductId,model.StockInHand,model.OpeningDate);
+            model.HsnSac, model.ProductId,model.StockInHand,model.OpeningDate,UserId);
 
 
             _sparePartRepository.Add(sparePart);
@@ -82,7 +85,7 @@ namespace BSEnterprises.WebApp.Api.SparePartApi
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var sparePartFromDb = await _sparePartRepository.GetAsync(id);
+            var sparePartFromDb = await _sparePartRepository.GetAsync(id,UserId);
 
             if (sparePartFromDb == null)
             {
@@ -100,7 +103,7 @@ namespace BSEnterprises.WebApp.Api.SparePartApi
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var productFromDb = await _sparePartRepository.GetAsync(id);
+            var productFromDb = await _sparePartRepository.GetAsync(id,UserId);
             if (productFromDb == null)
             {
                 return NotFound();

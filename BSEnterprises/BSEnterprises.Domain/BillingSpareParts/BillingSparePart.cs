@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BSEnterprises.Domain.UserModule;
 
 namespace BSEnterprises.Domain.BillingSpareParts
 {
@@ -16,16 +17,19 @@ namespace BSEnterprises.Domain.BillingSpareParts
         public string  PlaceOfSupply { get; set; }
 
         public double TotalInvoiceValue { get; set; }
+        public User User { get; set; }
+        public string UserId { get; set; }
         public ICollection<BillingSparePartItem> BillingSparePartItems { get; set; }
 
         public BillingSparePart()
         {
+            BillingSparePartItems = new List<BillingSparePartItem>();
          }
 
          
     public BillingSparePart(string customerName, DateTime date, string customerAddress,
                             string customerState, string customerGstin, 
-                            string placeOfSupply, double totalInvoiceValue, 
+                            string placeOfSupply, double totalInvoiceValue,string userId, 
                             List <BillingSparePartItem> billingSparePartItems )
                            
                            
@@ -38,6 +42,8 @@ namespace BSEnterprises.Domain.BillingSpareParts
                                 CustomerGstin = customerGstin;
                                 PlaceOfSupply = placeOfSupply;
                                 TotalInvoiceValue = totalInvoiceValue;
+                                UserId = userId;
+                                BillingSparePartItems = billingSparePartItems;
 
                                 
                             }
@@ -58,7 +64,7 @@ namespace BSEnterprises.Domain.BillingSpareParts
                                 CustomerGstin = customerGstin;
                                 PlaceOfSupply = placeOfSupply;
                                 TotalInvoiceValue = totalInvoiceValue;
-                                
+                                BillingSparePartItems = billingSparePartItems;
                                 
                             }                     
             }

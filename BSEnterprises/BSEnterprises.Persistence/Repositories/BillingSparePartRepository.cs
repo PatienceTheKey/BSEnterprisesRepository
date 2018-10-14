@@ -18,7 +18,7 @@ namespace BSEnterprises.Persistence.Repositories
             throw new System.NotImplementedException();
         }
 
-        public override Task<BillingSparePart> GetAsync(object id)
+        public override Task<BillingSparePart> GetAsync(object id,string userId)
         {
             return _context.BillingSpareParts.Include(or => or.BillingSparePartItems).SingleOrDefaultAsync(or => or.Id == (int)id);
         }

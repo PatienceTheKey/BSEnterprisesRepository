@@ -4,11 +4,13 @@ using BSEnterprises.Domain.Engineers;
 using BSEnterprises.Domain.Orders;
 using BSEnterprises.Domain.Products;
 using BSEnterprises.Domain.SpareParts;
+using BSEnterprises.Domain.UserModule;
 using BSEnterprises.WebApp.Api.CompanyApi;
 using BSEnterprises.WebApp.Api.EngineerApi;
 using BSEnterprises.WebApp.Api.OrderApi;
 using BSEnterprises.WebApp.Api.ProductApi;
 using BSEnterprises.WebApp.Api.SparePartApi;
+using BSEnterprises.WebApp.Api.UserApi;
 
 namespace BSEnterprises.WebApp.Mappings
 {
@@ -31,6 +33,7 @@ namespace BSEnterprises.WebApp.Mappings
             CreateMap<Order, SaveOrderResource>();
             CreateMap<OrderItem, SaveOrderItemResource>();
             CreateMap<OrderItem, OrderItemResource>();
+            CreateMap<User,UserResource>();
         }    
     }
 }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       

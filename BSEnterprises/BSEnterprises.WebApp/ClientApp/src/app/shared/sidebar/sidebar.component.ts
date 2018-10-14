@@ -22,6 +22,7 @@ export class SidebarComponent implements OnInit {
                   {label: 'Engineer', routerLink:['/master/engineer']},
                   {label: 'Product', routerLink:['/master/product']},
                   {label: 'Spare-Part', routerLink:['/master/spare-part']},
+                  {label: 'User Profile', routerLink:['/master/user-profile/detail']}
           ]
       },
      
@@ -40,7 +41,8 @@ export class SidebarComponent implements OnInit {
       {
         label: 'Inventory', expanded : true,
              items : [
-               { label : 'List', routerLink : ['/reporting/reportings']}
+               { label : 'Engineer Wise', routerLink : ['/reporting/reportings']},
+               {label : 'Spare Part Wise', routerLink:['/reporting/inventories']}
              ]
              },
     

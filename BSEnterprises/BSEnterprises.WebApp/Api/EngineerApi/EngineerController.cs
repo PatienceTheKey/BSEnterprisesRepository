@@ -3,7 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BSEnterprises.Domain.Engineers;
+using BSEnterprises.Domain.UserModule;
 using BSEnterprises.Persistence;
+using BSEnterprises.WebApp.Api.UserApi;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,14 +13,15 @@ namespace BSEnterprises.WebApp.Api.EngineerApi
 {
     [Produces("application/json")]
     [Route("api/Engineers")]
-    public class EngineerController : Controller
+    public class EngineerController : UserController
     {
         private readonly IReadModelDatabase _database;
         private readonly IMapper _mapper;
         private readonly IEngineerRepository _engineerRepository;
         private readonly IUnitOfWork _unitOfWork;
         public EngineerController(IReadModelDatabase database, IMapper mapper,
-                                    IEngineerRepository engineerRepository, IUnitOfWork unitOfWork)
+                                    IEngineerRepository engineerRepository, IUnitOfWork unitOfWork,IUserRepository userRepository) 
+                                    : base(database,mapper,unitOfWork,userRepository)
         {
             _unitOfWork = unitOfWork;
             _engineerRepository = engineerRepository;
@@ -35,7 +38,7 @@ namespace BSEnterprises.WebApp.Api.EngineerApi
         [HttpGet("{id}")]
         public async Task<SaveEngineerResource> GetById(int id)
         {
-            var engineer = await _engineerRepository.GetAsync(id);
+            var engineer = await _engineerRepository.GetAsync(id,UserId);
 
             return _mapper.Map<Engineer, SaveEngineerResource>(engineer);
         }
@@ -47,7 +50,7 @@ namespace BSEnterprises.WebApp.Api.EngineerApi
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var engineer = new Engineer(model.Name, model.ContactNumber, model.Address);
+            var engineer = new Engineer(model.Name, model.ContactNumber, model.Address,UserId);
 
             _engineerRepository.Add(engineer);
 
@@ -62,7 +65,7 @@ namespace BSEnterprises.WebApp.Api.EngineerApi
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var engineerFromDb = await _engineerRepository.GetAsync(id);
+            var engineerFromDb = await _engineerRepository.GetAsync(id,UserId);
 
             if (engineerFromDb == null)
             {
@@ -80,7 +83,7 @@ namespace BSEnterprises.WebApp.Api.EngineerApi
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var engineerFromDb = await _engineerRepository.GetAsync(id);
+            var engineerFromDb = await _engineerRepository.GetAsync(id,UserId);
             if (engineerFromDb == null)
             {
                 return NotFound();

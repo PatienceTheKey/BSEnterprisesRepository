@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BSEnterprises.Domain.Engineers;
 using BSEnterprises.Domain.Orders;
+using BSEnterprises.Domain.UserModule;
 using BSEnterprises.Persistence;
+using BSEnterprises.WebApp.Api.UserApi;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +16,7 @@ namespace BSEnterprises.WebApp.Api.OrderApi
 {
     [Produces("application/json")]
     [Route("api/Order")]
-    public class OrderController : Controller
+    public class OrderController : UserController
     {
         private readonly IReadModelDatabase _database;
         private readonly IMapper _mapper;
@@ -23,7 +25,8 @@ namespace BSEnterprises.WebApp.Api.OrderApi
         private readonly IUnitOfWork _unitOfWork;
 
         public OrderController(IReadModelDatabase database, IMapper mapper,
-                               IOrderRepository orderRepository, IEngineerRepository engineerRepository, IUnitOfWork unitOfWork)
+                               IOrderRepository orderRepository, IEngineerRepository engineerRepository, IUnitOfWork unitOfWork,IUserRepository userRepository)
+                               : base(database,mapper,unitOfWork,userRepository)
         {
             _database = database;
             _mapper = mapper;
@@ -53,11 +56,11 @@ namespace BSEnterprises.WebApp.Api.OrderApi
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var engineer = await _engineerRepository.GetAsync(model.EngineerId);
+            var engineer = await _engineerRepository.GetAsync(model.EngineerId,UserId);
             if (engineer == null)
                 throw new ArgumentNullException();
 
-            var newOrder = new Order(model.OrderDate, model.EngineerId, OrderItems(model));
+            var newOrder = new Order(model.OrderDate, model.EngineerId,UserId, OrderItems(model));
 
             _orderRepository.Add(newOrder);
             await _unitOfWork.CompleteAsync();
@@ -109,7 +112,7 @@ namespace BSEnterprises.WebApp.Api.OrderApi
 
         private Task<Order> FindOrderById(int id)
         {
-            return _orderRepository.GetAsync(id);
+            return _orderRepository.GetAsync(id,UserId);
         }
     }
 }

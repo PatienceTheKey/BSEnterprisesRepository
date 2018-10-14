@@ -1,5 +1,6 @@
 using BSEnterprises.Domain.Orders;
 using BSEnterprises.Domain.Products;
+using BSEnterprises.Domain.UserModule;
 using System;
 using System.Collections.Generic;
 
@@ -20,6 +21,9 @@ namespace BSEnterprises.Domain.SpareParts
         public double StockInHand { get; set; } 
         public DateTime OpeningDate { get; set; }
 
+        public User User { get; set; }
+        public string UserId { get; set; }
+
         public bool IsActive { get; set; }
         public IEnumerable<OrderItem> OrderItems { get; set; }
 
@@ -28,7 +32,7 @@ namespace BSEnterprises.Domain.SpareParts
             
         }
 
-        public SparePart(string name, double? price, double? rateOfTax, string hsnSac, int productId,double stockInHand,DateTime openingDate)
+        public SparePart(string name, double? price, double? rateOfTax, string hsnSac, int productId,double stockInHand,DateTime openingDate,string userId)
         {
             Name = name;
             Price = price;
@@ -37,6 +41,7 @@ namespace BSEnterprises.Domain.SpareParts
             HsnSac = hsnSac;
             StockInHand = stockInHand;
             OpeningDate = openingDate;
+            UserId = userId;
             IsActive = true;
         
         }

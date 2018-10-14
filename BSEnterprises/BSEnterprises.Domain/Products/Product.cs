@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using BSEnterprises.Domain.Companies;
 using BSEnterprises.Domain.Orders;
+using BSEnterprises.Domain.UserModule;
 
 namespace BSEnterprises.Domain.Products
 {
@@ -15,6 +16,8 @@ namespace BSEnterprises.Domain.Products
         public bool IsActive { get; set; }
 
         public double? Price {get; set;}
+        public User User { get; set; }
+        public string UserId { get; set; }
 
         public IEnumerable<OrderItem> OrderItems { get; set; }
         public Product ()
@@ -22,12 +25,13 @@ namespace BSEnterprises.Domain.Products
                 
         }
 
-          public Product( string name, int companyId, double? price)
+          public Product( string name, int companyId, double? price,string userId)
         {
             
             Name = name;
             CompanyId = companyId;
             Price = price;
+            UserId = userId;
             IsActive = true;
 
                     }

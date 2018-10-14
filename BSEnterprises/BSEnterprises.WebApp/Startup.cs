@@ -8,6 +8,7 @@ using BSEnterprises.Domain.Engineers;
 using BSEnterprises.Domain.Orders;
 using BSEnterprises.Domain.Products;
 using BSEnterprises.Domain.SpareParts;
+using BSEnterprises.Domain.UserModule;
 using BSEnterprises.Persistence;
 using BSEnterprises.Persistence.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -32,6 +33,7 @@ namespace BSEnterprises.WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<IEngineerRepository, EngineerRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();

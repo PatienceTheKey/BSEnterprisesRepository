@@ -3,8 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BSEnterprises.Domain.Products;
-
+using BSEnterprises.Domain.UserModule;
 using BSEnterprises.Persistence;
+using BSEnterprises.WebApp.Api.UserApi;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,7 @@ namespace BSEnterprises.WebApp.Api.ProductApi
 {
     [Produces("application/json")]
     [Route("api/Products")]
-    public class ProductController: Controller
+    public class ProductController: UserController
     {
         
       private readonly IReadModelDatabase _database;
@@ -23,7 +24,8 @@ namespace BSEnterprises.WebApp.Api.ProductApi
         private readonly IProductRepository _productRepository;
         private readonly IUnitOfWork _unitOfWork;
         public ProductController(IReadModelDatabase database, IMapper mapper,
-                                    IProductRepository productRepository, IUnitOfWork unitOfWork)
+                                    IProductRepository productRepository, IUnitOfWork unitOfWork,IUserRepository userRepository)
+                                    : base(database,mapper,unitOfWork,userRepository)
         {
             _unitOfWork = unitOfWork;
             _productRepository = productRepository;
@@ -44,7 +46,7 @@ namespace BSEnterprises.WebApp.Api.ProductApi
         [HttpGet("{id}")]
         public async Task<SaveProductResource> GetById(int id)
         {
-            var product = await _productRepository.GetAsync(id);
+            var product = await _productRepository.GetAsync(id,UserId);
 
             return _mapper.Map<Product, SaveProductResource>(product);
         }
@@ -65,7 +67,7 @@ namespace BSEnterprises.WebApp.Api.ProductApi
 
                 
 
-            var product = new Product(model.Name, model.CompanyId, model?.Price);
+            var product = new Product(model.Name, model.CompanyId, model?.Price,UserId);
 
 
             _productRepository.Add(product);
@@ -82,7 +84,7 @@ namespace BSEnterprises.WebApp.Api.ProductApi
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var productFromDb = await _productRepository.GetAsync(id);
+            var productFromDb = await _productRepository.GetAsync(id,UserId);
 
             if (productFromDb == null)
             {
@@ -100,7 +102,7 @@ namespace BSEnterprises.WebApp.Api.ProductApi
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var productFromDb = await _productRepository.GetAsync(id);
+            var productFromDb = await _productRepository.GetAsync(id,UserId);
             if (productFromDb == null)
             {
                 return NotFound();

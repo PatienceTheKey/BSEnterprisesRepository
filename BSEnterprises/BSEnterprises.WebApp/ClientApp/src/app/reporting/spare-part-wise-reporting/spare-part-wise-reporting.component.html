@@ -1,0 +1,75 @@
+<br />
+<br />
+
+<h4>
+  Spart Part Wise Report
+</h4>
+
+
+<h5>
+  Filter By :-
+</h5>
+
+<div class="ui-g">
+  <div class="ui-g-3">
+    Spart Part Name
+  </div>
+  <div class="ui-g-3">
+    <p-dropdown [options]="sparePartSelectList" [(ngModel)]="sparePartId"  placeholder="Select"  [style]="{'width':'160px'}" filter="true" >
+      <ng-template let-option pTemplate="item">
+        <div translate>{{option.label}}</div>
+      </ng-template>
+    </p-dropdown>  
+  </div>
+  <div class="ui-g-3">
+    <button pButton type="button" label="Search" (click)="getInventory()" class="ui-button-success"></button>
+
+  </div>
+</div>
+
+<br />
+
+<table class="table"> 
+  <thead>
+    <tr>
+      <th>
+        Stock In Hand
+      </th>
+      <th>
+         Alloted
+      </th>
+      <th>
+        Left In Bag
+      </th>
+      <th>
+        Left In Stock
+      </th>
+      <th>
+        Opening Date
+      </th>
+      
+    </tr>
+ </thead>
+ <tbody>
+   <tr>
+     <td>
+       {{inventory?.stockInHand }}
+     </td>
+     <td>
+       {{inventory?.alloted}}
+     </td>
+     <td>
+      {{inventory?.leftInBag}}
+    </td>
+     <td>
+       {{inventory?.leftInStock}}
+     </td>
+     <td>
+      {{inventory?.openingDate | date:'dd/MM/yyyy' }}
+     </td>
+     
+   </tr>
+ </tbody>
+</table>
+
+

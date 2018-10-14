@@ -17,9 +17,9 @@ namespace BSEnterprises.Persistence.Repositories
             throw new System.NotImplementedException();
         }
 
-        public override Task<Engineer> GetAsync(object id )
+        public override Task<Engineer> GetAsync(object id,string userId )
         {
-            return _context.Engineers.SingleOrDefaultAsync(c => c.Id == (int)id );
+            return _context.Engineers.SingleOrDefaultAsync(c => c.Id == (int)id && c.UserId == userId );
         }
     }
 }

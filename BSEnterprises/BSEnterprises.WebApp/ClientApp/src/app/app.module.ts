@@ -17,6 +17,7 @@ import { ReportingModule } from './reporting/reporting.module';
 import { BillingSparePartService } from './billing/billing-spare-part.service';
 import { BillingModule } from './billing/billing.module';
 import { CompanyListComponent } from './master/components/company/company-list/company-list.component';
+import { UserProfileService } from './master/user-profile/user-profile.service';
 
 
 const routes: Routes = [
@@ -53,7 +54,12 @@ const routes: Routes = [
       )
 
   ],
-  providers: [CompanyService, ProductService, SparePartService,EngineerService, BillingSparePartService],
+  providers: [CompanyService, 
+              ProductService, 
+             SparePartService,
+             EngineerService, 
+             BillingSparePartService,
+            UserProfileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

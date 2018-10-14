@@ -20,9 +20,9 @@ namespace BSEnterprises.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public override Task<Order> GetAsync(object id)
+        public override Task<Order> GetAsync(object id,string userId)
         {
-            return _context.Orders.Include(or => or.OrderItems).SingleOrDefaultAsync(or => or.Id == (int)id);
+            return _context.Orders.Include(or => or.OrderItems).SingleOrDefaultAsync(or => or.Id == (int)id && or.UserId == userId);
         }
     }
 }

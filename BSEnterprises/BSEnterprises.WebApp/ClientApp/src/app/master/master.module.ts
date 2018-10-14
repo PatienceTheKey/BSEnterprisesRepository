@@ -16,6 +16,7 @@ import { EngineerService } from './components/engineer/engineer.service';
 import { ProductService } from './components/product/product.service';
 import { SparePartService } from './components/spare-part/spare-part.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
     {
@@ -30,6 +31,7 @@ const routes: Routes = [
             { path: "product/:id", component: ProductFormComponent },
             { path: "spare-part", component: SparePartListComponent },
             { path: "spare-part/:id", component: SpareParFormComponent },
+            { path: "user-profile/:action", component : UserProfileComponent},
             { path: '', redirectTo: 'company', pathMatch: 'full' },
             
 
@@ -54,7 +56,8 @@ const routes: Routes = [
         ProductFormComponent,
         ProductListComponent,
         SpareParFormComponent,
-        SparePartListComponent],
+        SparePartListComponent,
+        UserProfileComponent],
    
 
 })
