@@ -3,7 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BSEnterprises.Domain.Companies;
+using BSEnterprises.Domain.UserModule;
 using BSEnterprises.Persistence;
+using BSEnterprises.WebApp.Api.UserApi;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +14,7 @@ namespace BSEnterprises.WebApp.Api.CompanyApi
 
     [Produces("application/json")]
     [Route("api/Companies")]
-    public class CompanyController : Controller
+    public class CompanyController : UserController
     {
         private readonly IReadModelDatabase _database;
         private readonly IMapper _mapper;
@@ -20,7 +22,7 @@ namespace BSEnterprises.WebApp.Api.CompanyApi
         private readonly IUnitOfWork _unitOfWork;
 
         public CompanyController(IReadModelDatabase database, IMapper mapper, ICompanyRepository companyRepository,
-                                IUnitOfWork unitOfWork)
+                                IUnitOfWork unitOfWork,IUserRepository userRepository) : base(database,mapper,unitOfWork,userRepository)
         {
             _unitOfWork = unitOfWork;
             _companyRepository = companyRepository;
@@ -31,14 +33,16 @@ namespace BSEnterprises.WebApp.Api.CompanyApi
         [HttpGet]
         public async Task<IEnumerable<CompanyResource>> GetCompanies()
         {
-            var companies = await _database.Companies.ToListAsync();
+            var companies = await _database.Companies
+                                        .Where(c => c.UserId == UserId)
+                                        .ToListAsync();
             return _mapper.Map<List<Company>, List<CompanyResource>>(companies.Where(td => td.IsActive).ToList());
         }
 
         [HttpGet("{id}")]
         public async Task<SaveCompanyResource> GetById(int id)
         {
-            var company = await _companyRepository.GetAsync(id);
+            var company = await _companyRepository.GetAsync(id,UserId);
 
             return _mapper.Map<Company, SaveCompanyResource>(company);
         }
@@ -50,7 +54,7 @@ namespace BSEnterprises.WebApp.Api.CompanyApi
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var company = new Company(model.Name, model.ContactNumber);
+            var company = new Company(model.Name, model.ContactNumber,UserId);
 
             _companyRepository.Add(company);
 
@@ -65,7 +69,7 @@ namespace BSEnterprises.WebApp.Api.CompanyApi
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var companyFromDb = await _companyRepository.GetAsync(id);
+            var companyFromDb = await _companyRepository.GetAsync(id,UserId);
 
             if (companyFromDb == null)
             {
@@ -83,7 +87,7 @@ namespace BSEnterprises.WebApp.Api.CompanyApi
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var companyFromDb = await _companyRepository.GetAsync(id);
+            var companyFromDb = await _companyRepository.GetAsync(id,UserId);
             if (companyFromDb == null)
             {
                 return NotFound();

@@ -11,9 +11,10 @@ using System;
 namespace BSEnterprises.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181013045325_addUser")]
+    partial class addUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,11 +42,7 @@ namespace BSEnterprises.Persistence.Migrations
 
                     b.Property<double>("TotalInvoiceValue");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("BillingSpareParts");
                 });
@@ -93,11 +90,7 @@ namespace BSEnterprises.Persistence.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Companies");
                 });
@@ -115,11 +108,7 @@ namespace BSEnterprises.Persistence.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Engineers");
                 });
@@ -133,13 +122,9 @@ namespace BSEnterprises.Persistence.Migrations
 
                     b.Property<DateTime>("OrderDate");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("EngineerId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -189,13 +174,9 @@ namespace BSEnterprises.Persistence.Migrations
 
                     b.Property<double?>("Price");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Products");
                 });
@@ -221,13 +202,9 @@ namespace BSEnterprises.Persistence.Migrations
 
                     b.Property<double>("StockInHand");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("SpareParts");
                 });
@@ -266,32 +243,11 @@ namespace BSEnterprises.Persistence.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("BSEnterprises.Domain.BillingSpareParts.BillingSparePart", b =>
-                {
-                    b.HasOne("BSEnterprises.Domain.UserModule.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("BSEnterprises.Domain.BillingSpareParts.BillingSparePartItem", b =>
                 {
                     b.HasOne("BSEnterprises.Domain.BillingSpareParts.BillingSparePart")
                         .WithMany("BillingSparePartItems")
                         .HasForeignKey("BillingSparePartId");
-                });
-
-            modelBuilder.Entity("BSEnterprises.Domain.Companies.Company", b =>
-                {
-                    b.HasOne("BSEnterprises.Domain.UserModule.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("BSEnterprises.Domain.Engineers.Engineer", b =>
-                {
-                    b.HasOne("BSEnterprises.Domain.UserModule.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("BSEnterprises.Domain.Orders.Order", b =>
@@ -300,10 +256,6 @@ namespace BSEnterprises.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("EngineerId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("BSEnterprises.Domain.UserModule.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("BSEnterprises.Domain.Orders.OrderItem", b =>
@@ -334,10 +286,6 @@ namespace BSEnterprises.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("BSEnterprises.Domain.UserModule.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("BSEnterprises.Domain.SpareParts.SparePart", b =>
@@ -346,10 +294,6 @@ namespace BSEnterprises.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("BSEnterprises.Domain.UserModule.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

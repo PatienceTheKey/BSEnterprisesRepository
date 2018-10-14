@@ -5,6 +5,7 @@ using BSEnterprises.Domain.Engineers;
 using BSEnterprises.Domain.Orders;
 using BSEnterprises.Domain.Products;
 using BSEnterprises.Domain.SpareParts;
+using BSEnterprises.Domain.UserModule;
 using Microsoft.EntityFrameworkCore;
 
 namespace BSEnterprises.Persistence
@@ -29,5 +30,7 @@ namespace BSEnterprises.Persistence
         public IQueryable<Order> Orders => _context.Orders.AsNoTracking();
 
         public IQueryable<OrderItem> OrderItems => _context.OrderItems.AsNoTracking();
+
+        public DbSet<User> Users => _context.Users;
     }
 }

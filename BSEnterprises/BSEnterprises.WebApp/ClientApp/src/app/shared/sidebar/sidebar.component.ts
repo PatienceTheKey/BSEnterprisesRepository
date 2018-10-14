@@ -22,6 +22,7 @@ export class SidebarComponent implements OnInit {
                   {label: 'Engineer', routerLink:['/master/engineer']},
                   {label: 'Product', routerLink:['/master/product']},
                   {label: 'Spare-Part', routerLink:['/master/spare-part']},
+                  {label: 'User Profile', routerLink:['/master/user-profile/detail']}
           ]
       },
      

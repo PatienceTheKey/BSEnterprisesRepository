@@ -15,5 +15,27 @@ namespace BSEnterprises.Domain.UserModule
         public string AccountNumber { get; set; }
         public string State { get; set; }
         public string Subject { get; set; }
+
+        public void Modify(string name, string gstin, string pan, string contactNumber, string email, string address,
+                            string termsAndCondition, string bankName, string ifscCode, string accountNumber,  string state
+                            )
+        {
+
+            Name = name;
+            
+            Gstin = gstin;
+            Pan = pan;
+            ContactNumber = contactNumber;
+            Email = email;
+            Address = address;
+            TermsAndCondition = termsAndCondition;
+            BankName = bankName;
+            IfscCode = ifscCode;
+            AccountNumber = accountNumber;
+            State = state;
+            
+        }
     }
+
+    
 }

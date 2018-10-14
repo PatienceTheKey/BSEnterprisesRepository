@@ -5,7 +5,7 @@ namespace BSEnterprises.Domain
 {
      public interface IRepositoryBase<T> where T : class
     {
-        Task<T> GetAsync(object id);
+        Task<T> GetAsync(object id,string userId);
         Task<T> GetAllAsync(object id);
         
         void Add(T entity);

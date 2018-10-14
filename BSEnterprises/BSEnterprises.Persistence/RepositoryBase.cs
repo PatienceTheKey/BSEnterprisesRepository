@@ -24,7 +24,7 @@ namespace BSEnterprises.Persistence
 
         public abstract Task<T> GetAllAsync(object id);
 
-        public abstract Task<T> GetAsync(object id);
+        public abstract Task<T> GetAsync(object id,string userId);
 
         public void Remove(T entity)
         {
