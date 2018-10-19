@@ -73,7 +73,7 @@ billingSparePartItems: this.fb.array([])
 
 
   getBillingSparePart(id){
-     this.billingSparePartService.getOne(id).subscribe((billingSparePart:IBillingSparePart) => this.billingSparePartRetreived(this.billingSparePart))
+     this.billingSparePartService.getOne(id).subscribe((billingSparePart:IBillingSparePart) => this.billingSparePartRetreived(billingSparePart))
   }
 
 
@@ -114,7 +114,7 @@ billingSparePartItems: this.fb.array([])
 
   getProductPriceAndHsn(pId: HTMLInputElement, rate: HTMLInputElement, hsnCode: HTMLInputElement): void {
     var prod = this.spareParts.find(p => p.id == Number(pId.value));
-    var product = this.spareParts.find(p => p.id == Number(pId.value)).id;
+    // var product = this.spareParts.find(p => p.id == Number(pId.value)).id;
     
     if (prod != null) {
         rate.value = prod.price.toString();  
@@ -143,7 +143,7 @@ billingSparePartItems: this.fb.array([])
   let taxableValue = (+quantity.value * +rate.value) * (1 - (+dis.value/100));
   
   var billingSparePartItem: IBillingSpareItems = {
-    id : Number(),
+    
     productId: Number(pId.value),
     quantity: Number(quantity.value),
     discount: Number(dis.value),
@@ -212,5 +212,9 @@ private onSaveComplete(): void {
   this.router.navigate(['../'], { relativeTo: this.route });
 }
 
-
+getSpartPartName(id: number): string {
+  if (this.spareParts) {
+      return this.spareParts.find(sp => sp.id == id).name;
+  }
+}
 }

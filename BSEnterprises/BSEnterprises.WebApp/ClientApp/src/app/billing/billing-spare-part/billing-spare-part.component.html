@@ -32,7 +32,7 @@
           <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
             <tr class="ui-resizable-column">
               <td>{{rowIndex+1}}</td>
-              <td>{{getProductPriceAndHsn(item.productId)}}</td>
+              <td>{{getSpartPartName(item.productId)}}</td>
               <td>{{item.quantity}}</td>
               <td>{{item.rate}}</td>
               <td>{{item.discount}}</td>

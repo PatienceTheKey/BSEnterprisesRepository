@@ -13,7 +13,7 @@ billingSparePartItems: IBillingSpareItems[]
 }
 
 export interface IBillingSpareItems{
-id: number;
+
 productId: number;
 quantity: number;
 discount: number;
