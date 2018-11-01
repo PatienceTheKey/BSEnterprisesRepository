@@ -78,8 +78,10 @@ export class SpareParFormComponent implements OnInit {
       rateOfTax: [0],
       productId: [''],
       stockInHand : [0],
-      openingDate : new Date()
-                //  openBalance: [0,Validators.required],
+      openingDate : new Date(),
+      model : [''],
+      code : ['']
+                
   });
 }
 
@@ -111,9 +113,9 @@ private onSparePartRetrieved(sparePart:ISparePart): void{
         hsnSac: this.sparePart.hsnSac,
         rateOfTax: this.sparePart.rateOfTax,
         stockInHand : this.sparePart.stockInHand,
-        openingDate : new Date(opDate.getTime() + Math.abs(opDate.getTimezoneOffset() * 60000))
-        
-       
+        openingDate : new Date(opDate.getTime() + Math.abs(opDate.getTimezoneOffset() * 60000)),
+        model : this.sparePart.model,
+        code :  this.sparePart.code
     
 });
 

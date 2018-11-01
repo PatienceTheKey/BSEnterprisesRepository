@@ -18,7 +18,8 @@ namespace BSEnterprises.WebApp.Api.SparePartApi
         public int ProductId { get; set; }
         public double StockInHand { get; set; }
         public DateTime OpeningDate { get; set; }
-
+        public string Model { get; set; }
+        public string Code { get; set; }
 
     }
 }

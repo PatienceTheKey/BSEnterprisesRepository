@@ -26,7 +26,9 @@ export class SparePartService extends ServiceBase<ISparePart>{
       productId: 0,
       hsnSac: '',
       stockInHand : 0,
-      openingDate : new Date()
+      openingDate : new Date(),
+      model : '',
+      code : ''
 
     }
   }

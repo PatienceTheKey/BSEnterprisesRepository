@@ -7,4 +7,6 @@ export interface ISparePart {
     productId: number;
     stockInHand : number;
     openingDate : Date;
+    model : string;
+    code : string;
 }

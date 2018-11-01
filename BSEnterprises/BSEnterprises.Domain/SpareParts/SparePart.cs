@@ -20,6 +20,8 @@ namespace BSEnterprises.Domain.SpareParts
         
         public double StockInHand { get; set; } 
         public DateTime OpeningDate { get; set; }
+        public string Model { get; set; }
+        public string Code { get; set; }
 
         public User User { get; set; }
         public string UserId { get; set; }
@@ -32,7 +34,7 @@ namespace BSEnterprises.Domain.SpareParts
             
         }
 
-        public SparePart(string name, double? price, double? rateOfTax, string hsnSac, int productId,double stockInHand,DateTime openingDate,string userId)
+        public SparePart(string name, double? price, double? rateOfTax, string hsnSac, int productId,double stockInHand,DateTime openingDate,string model,string code,string userId)
         {
             Name = name;
             Price = price;
@@ -41,20 +43,24 @@ namespace BSEnterprises.Domain.SpareParts
             HsnSac = hsnSac;
             StockInHand = stockInHand;
             OpeningDate = openingDate;
+            Model = model;
+            Code = code;
             UserId = userId;
             IsActive = true;
         
         }
 
-        public void Modify(string name, double? price, double? rateOfTax, string hsnSac, int productId,double stockInHand,DateTime openingDate)
+        public void Modify(string name, double? price, double? rateOfTax, string hsnSac, int productId,double stockInHand,DateTime openingDate,string model,string code)
         {
             Name = name;
             Price = price;
             ProductId = productId;
-              RateOfTax = rateOfTax;
+            RateOfTax = rateOfTax;
             HsnSac = hsnSac;
             StockInHand = stockInHand;
             OpeningDate = openingDate;
+            Model = model;
+            Code = code;
             IsActive = true;
         }
 
