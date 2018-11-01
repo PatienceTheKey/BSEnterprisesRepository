@@ -18,25 +18,31 @@ import { BillingSparePartService } from './billing/billing-spare-part.service';
 import { BillingModule } from './billing/billing.module';
 import { CompanyListComponent } from './master/components/company/company-list/company-list.component';
 import { UserProfileService } from './master/user-profile/user-profile.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 const routes: Routes = [
   {
-      path: 'home',
+      path: 'authenticated',
       component: AuthenticatedUserComponent,
       children: [
-          { path: 'company', component: CompanyListComponent },
-          { path: '', redirectTo: 'company', pathMatch: 'full' },
+          { path: 'dashboard', component: DashboardComponent },
+          
           
 
       ]
-  }
+  },
+  { path: '', redirectTo: 'authenticated/dashboard', pathMatch: 'full' },
+  { path: '**', redirectTo: 'authenticated/dashboard' }
+
+
 ]
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    DashboardComponent,
     
 
 
